@@ -1,0 +1,7 @@
+.paginateContainer{
+    .paginateAnchor{
+        &.paginateDisabled{
+            cursor: default;
+        }
+    }
+}

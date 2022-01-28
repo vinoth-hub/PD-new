@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>:: Title will  be here ::</title>
+        <!--<link href="css/styles.css" rel="stylesheet" />-->
+        <link href="css/style2.css" rel="stylesheet" />
+        <!--<link rel="stylesheet" type="text/css" href="css/jquery.dropdown.css">-->
+        <!--/*********** jquery UI Css used only fot tooltip ************/-->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="js/jquery.dropdown.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+		<!--<script type="text/javascript" src="js/paging.js"></script>--> 
+        
+        <link href="css/jquery.paginate.css" rel="stylesheet" type="text/css">
+        <script src="js/jquery.paginate.js"></script>
+<script>
+$(document).ready(function () {
+
+$( ".leftMenuPanel" ).click(function() {
+	$(".leftMenuDropdown").toggle();
+});
+
+    $('#tableData').paginate({
+        'elemsPerPage': 5,
+            'maxButtons': 6
+    });
+});
+</script>
+        
+		<script type="text/javascript">
+			$(document).ready(function() {
+				//$('#tableData').paging({limit:5});
+				
+				
+/*				$(".linkButtonClass").on('click', function() {
+   $(".selectReport").hide();
+   $(".auditingReport").show();
+});
+*/			
+				
+
+});
+        </script>
+        
+        <script>
+ /************ Add Report ***************/
+ $( function() {
+    var dialogCategory;
+    dialogCategory = $( "#dialogCategory" ).dialog({
+      autoOpen: false,
+      height: 'auto',
+      width: 630,
+      modal: true,
+	  create: function() {
+      $(".ui-dialog").find(".ui-dialog-titlebar").css({
+        'background-image': 'none',
+        'background-color': 'transparent',
+        'border': 'none'
+      });
+	  }
+    });
+    $( ".addCategryPop" ).on( "click", function() {
+      dialogCategory.dialog( "open" );
+    });
+	
+	
+    var dialogCategory2;
+    dialogCategory2 = $( "#dialogCategory2" ).dialog({
+      autoOpen: false,
+      height: 'auto',
+      width: 630,
+      modal: true,
+	  create: function() {
+      $(".ui-dialog").find(".ui-dialog-titlebar").css({
+        'background-image': 'none',
+        'background-color': 'transparent',
+        'border': 'none'
+      });
+	  }
+    });
+	$(".linkButtonClass").on('click', function() {
+      dialogCategory.dialog( "close" );
+      dialogCategory2.dialog( "open" );
+	
+	});
+	
+	
+  } ); 
+  
+  </script>
+    </head>
+    <body class="sb-nav-fixed">
+        <!--/**************** Top Header Section Start Here ************************/-->
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand ps-3" href="#"><img src="images/logo.png" width="80"/></a>
+            <select class="categoryDropdownInner">
+                <option value="category 1">Edit Category</option>
+                <option value="category 1">Edit Category</option>
+                <option value="category 1">Edit Category</option>
+                <option value="category 1">Edit Category</option>
+            </select>
+            
+            <ul class="navbar-nav ms-auto topMenuAlign">
+                <li class="nav-item dropdown">
+                    <span class="profileName">Muhammad Arif</span><img src="images/profileIcon.png" alt="Profile" title="Profile" id="a2"  class="profileIcon"/> </a>
+	            </li>
+            </ul>
+            
+            
+            <div class="leftMenuHideImg">
+            	<img src="images/leftIcon.png" class="leftMenuPanel"/>
+            </div>
+            
+            <div class="leftMenuDropdown">
+            
+            <ul class="dropdown-menu dropdown-menu-end rightDivPop" style="display:block;" id="rightMenu">
+                                    <li> <a class="nav-link active" href="category.html">
+                                <div class="sb-nav-link-icon"><i class="far fa-file-alt fa-2x"></i></div>
+                            </a></li>
+                                    <li>
+                                    <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="far fa-bell fa-2x"></i></div>
+                            </a>
+                                    </li>
+                                    <!--<li><a href="users.html">Users</a></li>
+                                    <li><a href="#" class="addCategryPop">Add Categories</a></li>
+                                    <li><a href="#" class="addCategryPop">Copy Categories</a></li>-->
+                                    </ul>
+            
+            </div>
+            
+            
+          </nav>
+        <!--/**************** Top Header Section End Here ************************/-->
+        <!--/**************** Body Section Start Here ************************/-->
+        <div id="layoutSidenav">
+        <!--/**************** Left Menu Section Start Here ************************/-->
+            <div id="layoutSidenav_nav">
+                	<nav class="sb-sidenav sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <a class="nav-link active" href="#">
+                                <div class="sb-nav-link-icon"><i class="far fa-file-alt fa-2x"></i></div>
+                            </a>
+                            <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="far fa-bell fa-2x"></i></div>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        <!--/**************** Left Menu Section End Here ************************/-->
+        
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                    	<div class="card mb-4 mt-4" >
+                            
+                            <div class="card-bodyInner">
+                            	<!--/***** Body menu section start here *************/-->
+                            	<div Class="innerHeading">
+                                Report Auditing
+                                </div>
+                                <div Class="menuSecond">
+                                    <div class="menuRightDiv" >
+                                      <img src="images/addIcon.png" class="addIconClass addCategryPop">
+                                    </div>
+                                    <div class="menuDivText addCategryPop">
+                                      Create New Report
+                                    </div>
+                                </div>
+                               <!--/***** Body menu section End here *************/--> 
+                               <!--/***** Body Table Data section start here *************/-->
+                                <div  class="tableWrapper">
+                                    <table class="tableClass" width="0" cellpadding="0" cellspacing="0" id="tableData">
+                                           
+                                            <thead>
+                                                <tr>
+                                                    <th width="15%">Report Type</th>
+                                                    <th width="15%">Auditing Type</th>
+                                                    <th width="15%">Start Date</th>
+                                                    <th width="15%">End Date</th>
+                                                    
+                                                    <th width="">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td valign="top">Auditing</td>
+                                                    <td valign="top">Demo Type</td>
+                                                    <td valign="top">12/09/2021</td>
+                                                    <td valign="top">12/09/2021</td>
+                                                    
+                                                    <td valign="top">
+                                                      <a href="#" class="deleteClass">Delete</a>
+                                                        <br/>
+                                                        <a href="#" class="EditCriteriaClass addCategryPop">Edit</a>
+                                                    </td>
+                                                </tr>
+												<tr>
+                                                	<td colspan="5"  class="transparentTR"></td> 
+                                               	</tr>
+                                                <tr>
+                                                    <td valign="top">Auditing</td>
+                                                    <td valign="top">Demo Type</td>
+                                                    <td valign="top">12/09/2021</td>
+                                                    <td valign="top">12/09/2021</td>
+                                                    
+                                                    <td valign="top">
+                                                      <a href="#" class="deleteClass">Delete</a>
+                                                        <br/>
+                                                        <a href="#" class="EditCriteriaClass addCategryPop">Edit</a>
+                                                    </td>
+                                                </tr>
+												<tr>
+                                                	<td colspan="5"  class="transparentTR"></td> 
+                                               	</tr>
+                                                <tr>
+                                                    <td valign="top">Auditing</td>
+                                                    <td valign="top">Demo Type</td>
+                                                    <td valign="top">12/09/2021</td>
+                                                    <td valign="top">12/09/2021</td>
+                                                    
+                                                    <td valign="top">
+                                                      <a href="#" class="deleteClass">Delete</a>
+                                                        <br/>
+                                                        <a href="#" class="EditCriteriaClass addCategryPop">Edit</a>
+                                                    </td>
+                                                </tr>
+												<tr>
+                                                	<td colspan="5"  class="transparentTR"></td> 
+                                               	</tr>
+                                                <tr>
+                                                    <td valign="top">Auditing</td>
+                                                    <td valign="top">Demo Type</td>
+                                                    <td valign="top">12/09/2021</td>
+                                                    <td valign="top">12/09/2021</td>
+                                                    
+                                                    <td valign="top">
+                                                      <a href="#" class="deleteClass">Delete</a>
+                                                        <br/>
+                                                        <a href="#" class="EditCriteriaClass addCategryPop">Edit</a>
+                                                    </td>
+                                                </tr>
+												<tr>
+                                                	<td colspan="5"  class="transparentTR"></td> 
+                                               	</tr>
+                                                <tr>
+                                                    <td valign="top">Auditing</td>
+                                                    <td valign="top">Demo Type</td>
+                                                    <td valign="top">12/09/2021</td>
+                                                    <td valign="top">12/09/2021</td>
+                                                    
+                                                    <td valign="top">
+                                                      <a href="#" class="deleteClass">Delete</a>
+                                                        <br/>
+                                                        <a href="#" class="EditCriteriaClass addCategryPop">Edit</a>
+                                                    </td>
+                                                </tr>
+												
+
+                                                                                                
+                                            </tbody>
+                                   </table>
+                                </div>
+                               <!--/***** Body Table Data section End here *************/-->
+                            </div>
+                       </div>
+                   </div>
+              </main>
+            </div>
+        </div>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<!--/**************Add New Reprt Popup Start ************/-->
+<div id="dialogCategory">
+    <div class="addCategoryPopupBox1">
+        <form method="post" action="#">
+        
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" class="selectReport">
+         
+          <tr>
+            <td class="popupHeadingCompany1" colspan="2">Create New Report</td>
+          </tr>
+          <tr>
+            <td class="formText" colspan="2">Select Report Type</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+            <select class="textTypeClassRight1" id="reportType" name="reportType">
+                <option value="Auditing">Auditing</option>
+                <option value="Report Type 2">Report Type 2</option>
+                <option value="Report Type 3">Report Type 3</option>
+                <option value="Report Type 4">Report Type 4</option>
+                </select>
+          </tr>
+          <tr>
+            <td colspan="2"><a href="#" class="linkButtonClass">Next</a></td>
+          </tr>
+        </table>
+        </form>
+ </div>
+ </div>
+ 
+<div id="dialogCategory2">
+    <div class="addCategoryPopupBox1">   
+            <form method="post" action="#">
+     
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="auditingReport">
+         
+          <tr>
+            <td class="popupHeadingCompany1" colspan="3">Auditing</td>
+          </tr>
+          <tr>
+            <td class="formText" colspan="3">Select Auditing Type</td>
+          </tr>
+          <tr>
+            <td colspan="3">
+            <select class="textTypeClassRight1" id="auditingType" name="auditingType">
+                <option value="Demo Type 1">Demo Type 1</option>
+                <option value="Demo Type 2">Demo Type 2</option>
+                <option value="Demo Type 3">Demo Type 3</option>
+                <option value="Demo Type 4">Demo Type 4</option>
+                </select>
+          </tr>
+          <tr>
+            <td class="formText" colspan="3">Start Date</td>
+          </tr>
+          <tr>
+              <td>
+                <select class="textTypeClassLeft" id="startDate" name="startDate">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                </select>
+              </td>
+              <td>
+                <select class="textTypeClassLeft" id="startMonth" name="startMonth">
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+              </td>
+              <td>
+                <select class="textTypeClassLeft" id="startYear" name="startYear">
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                </select>
+              </td>
+          </tr>
+          
+          <tr>
+            <td class="formText" colspan="3">End Date</td>
+          </tr>
+          <tr>
+              <td>
+                <select class="textTypeClassLeft" id="endDate" name="endDate">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                </select>
+              </td>
+              <td>
+                <select class="textTypeClassLeft" id="endMonth" name="endMonth">
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+              </td>
+              <td>
+                <select class="textTypeClassLeft" id="endYear" name="endYear">
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                </select>
+              </td>
+          </tr>
+          <tr>
+            <td class="formText" colspan="3">Sort By</td>
+          </tr>
+          
+          <tr>
+          <td colspan="3">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" class="popupBottomTable">
+              <tr>
+                <td width="20">
+                    <input type="checkbox" name="daynignt" id="daynight" value="1" class="savingTimeLeft"/> 
+                </td>
+                <td>
+                    <div class="menuDivText">User Then Date</div>
+                </td>
+                <td width="20">
+                    <input type="checkbox" name="daynignt" id="daynight" value="1" class="savingTimeLeft"/>
+                </td>
+                <td>
+                    <div class="menuDivText">Date Then User</div>
+                </td>
+              </tr>
+            </table>
+          </td>
+          </tr>
+          
+          
+          <tr>
+            <td colspan="3"><input type="submit" value="Add Company" class="formButtonClass"/></td>
+          </tr>
+        </table>
+        
+        </form>
+    </div>
+</div>
+<!--/**************Add New Report Popup End ************/-->
+    </body>
+</html>

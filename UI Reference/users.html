@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>:: Title will  be here ::</title>
+        <!--<link href="css/styles.css" rel="stylesheet" />-->
+        <link href="css/style2.css" rel="stylesheet" />
+        <!--<link rel="stylesheet" type="text/css" href="css/jquery.dropdown.css">-->
+        <!--/*********** jquery UI Css used only fot tooltip ************/-->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="js/jquery.dropdown.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+        <link href="css/jquery.paginate.css" rel="stylesheet" type="text/css">
+        <script src="js/jquery.paginate.js"></script>
+<script>
+$(document).ready(function () {
+$( ".leftMenuPanel" ).click(function() {
+	$(".leftMenuDropdown").toggle();
+});
+$( ".leftMenuPanel1" ).click(function() {
+	$(".smallMenu").toggle();
+});
+
+    $('#tableData').paginate({
+        'elemsPerPage': 5,
+            'maxButtons': 6
+    });
+});
+</script>
+        
+        <script>
+  $( function() {
+    var dialog;
+    dialog = $( "#dialog" ).dialog({
+      autoOpen: false,
+      height: 'auto',
+      width: 630,
+      modal: true,
+	  create: function() {
+      $(".ui-dialog").find(".ui-dialog-titlebar").css({
+        'background-image': 'none',
+        'background-color': 'transparent',
+        'border': 'none'
+      });
+	  }
+    });
+    $( ".addImg" ).on( "click", function() {
+      dialog.dialog( "open" );
+    });
+  } );
+  
+ /************ Add User ***************/
+ $( function() {
+    var dialogCategory;
+    dialogCategory = $( "#dialogCategory" ).dialog({
+      autoOpen: false,
+      height: 'auto',
+      width: 630,
+      modal: true,
+	  create: function() {
+      $(".ui-dialog").find(".ui-dialog-titlebar").css({
+        'background-image': 'none',
+        'background-color': 'transparent',
+        'border': 'none'
+      });
+	  }
+    });
+    $( ".addUserPop" ).on( "click", function() {
+      dialogCategory.dialog( "open" );
+    });
+  } ); 
+  
+ /************ Add Category ***************/
+			 $( function() {
+				var dialogCategory;
+				dialogCategory = $( "#dialogCategoryPop" ).dialog({
+				  autoOpen: false,
+				  height: 'auto',
+				  width: 470,
+				  modal: true,
+				  create: function() {
+				  $(".ui-dialog").find(".ui-dialog-titlebar").css({
+					'background-image': 'none',
+					'background-color': 'transparent',
+					'border': 'none'
+				  });
+				  }
+				});
+				$( ".addCategryPop" ).on( "click", function() {
+				  dialogCategory.dialog( "open" );
+				});
+			  }); 
+  
+ /************ Reset Password User ***************/
+ $( function() {
+    var dialogResetPassword;
+    dialogResetPassword = $( "#dialogResetPassword" ).dialog({
+      autoOpen: false,
+      height: 'auto',
+      width: 400,
+      modal: true,
+	  create: function() {
+      $(".ui-dialog").find(".ui-dialog-titlebar").css({
+        'background-image': 'none',
+        'background-color': 'transparent',
+        'border': 'none'
+      });
+	  }
+    });
+    $( ".resetPassword" ).on( "click", function() {
+      dialogResetPassword.dialog( "open" );
+    });
+  } ); 
+  
+  
+  
+  </script>
+  <style>
+  
+  </style>
+
+    </head>
+    <body class="sb-nav-fixed">
+        <!--/**************** Top Header Section Start Here ************************/-->
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand ps-3" href="#"><img src="images/logo.png" width="80"/></a>
+            <select class="categoryDropdownInner">
+                <option value="category 1">Edit Category</option>
+                <option value="category 1">Edit Category</option>
+                <option value="category 1">Edit Category</option>
+                <option value="category 1">Edit Category</option>
+            </select>
+            
+            <ul class="navbar-nav ms-auto topMenuAlign">
+                <li class="nav-item dropdown">
+                    <span class="profileName">Muhammad Arif</span><img src="images/profileIcon.png" alt="Profile" title="Profile" id="a2"  class="profileIcon"/> </a>
+	            </li>
+            </ul>
+            
+            <div class="leftMenuHideImg">
+            	<img src="images/leftIcon.png" class="leftMenuPanel"/>
+            </div>
+            
+            <div class="leftMenuDropdown">
+                <ul class="dropdown-menu dropdown-menu-end rightDivPop" style="display:block;" id="rightMenu">
+                    <li> 
+                    <a class="nav-link active" href="category.html">
+                        <div class="sb-nav-link-icon"><i class="far fa-file-alt fa-2x"></i></div>
+                    </a>
+                    </li>
+                    <li>
+                    <a class="nav-link" href="#">
+                        <div class="sb-nav-link-icon"><i class="far fa-bell fa-2x"></i></div>
+                    </a>
+                    </li>
+                </ul>
+            </div>
+            
+          </nav>
+        <!--/**************** Top Header Section End Here ************************/-->
+        <!--/**************** Body Section Start Here ************************/-->
+        <div id="layoutSidenav">
+        <!--/**************** Left Menu Section Start Here ************************/-->
+            <div id="layoutSidenav_nav">
+                	<nav class="sb-sidenav sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <a class="nav-link active" href="#">
+                                <div class="sb-nav-link-icon"><i class="far fa-file-alt fa-2x"></i></div>
+                            </a>
+                            <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="far fa-bell fa-2x"></i></div>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        <!--/**************** Left Menu Section End Here ************************/-->
+        
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                    	<div class="card mb-4 mt-4" >
+                            
+                            <div class="card-bodyInner">
+                            	<!--/***** Body menu section start here *************/-->
+                            	<div Class="innerHeading">
+                                User Permission and Settings
+                                </div>
+                            	<div class="menuSect">
+                            	<div Class="menuLast">
+                                    <div class="menuRightDiv" >
+                                      <img src="images/addIcon.png" class="addIconClass addUserPop">
+                                    </div>
+                                    <div class="menuDivText addUserPop">
+                                      Copy User
+                                    </div>
+                                </div>
+                                <div Class="menuSecond">
+                                    <div class="menuRightDiv" >
+                                      <img src="images/addIcon.png" class="addIconClass addUserPop">
+                                    </div>
+                                    <div class="menuDivText addUserPop">
+                                      Add User
+                                    </div>
+                                </div>
+                                <div Class="menuFirst">
+                                	<ul>
+                                    <li><a href="companies.html">Companies</a></li>
+                                    <li><a href="category.html">Categories</a></li>
+                                    <li><a href="users.html">Users</a></li>
+									</ul>                                
+                                </div>
+                                </div>
+                                
+                                <div class="menuSect1">
+                                	<img src="images/leftIcon.png" class="leftMenuPanel1"/>
+                                </div>
+                                <div class="smallMenu">
+                                    <ul class="dropdown-menu dropdown-menu-end" style="display:block; width:100%;" id="rightMenu">
+                                    <li><a href="companies.html">Companies</a></li>
+                                    <li><a href="category.html">Categories</a></li>
+                                    <li><a href="users.html">Users</a></li>
+                                    <li><a href="#" class="addUserPop">Copy User</a></li>
+                                    <li><a href="#" class="addUserPop">Add User</a></li>
+                                    </ul>
+                                </div>
+                                
+                               <!--/***** Body menu section End here *************/--> 
+                               <!--/***** Body Table Data section start here *************/-->
+                                <div  class="tableWrapper">
+                                    <table class="tableClass" width="0" cellpadding="0" cellspacing="0" id="tableData">
+                                           
+                                            <thead>
+                                                <tr>
+                                                    <th>Users</th>
+                                                    <th>Full Name</th>
+                                                    <th>Email Address</th>
+                                                    <th>Password</th>
+                                                    <th>IP</th>
+                                                    <th width="18%">Access Pages</th>
+                                                    <th width="18%">Categories</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td valign="top">User name</td>
+                                                    <td valign="top">Name</td>
+                                                    <td valign="top">kinmaker.ktk@gmail.com</td>
+                                                    <td valign="top">********</td>
+                                                    <td valign="top">198.168.1.1</td>
+                                                    <td valign="top">
+                                                        <div class="criteraDivImg">
+                                                        <img src="images/add.png" title="Add" width="32" class="addImg"/>
+                                                        </div>
+                                                        <div class="criteriaDiv"><span>Edit Categories</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>Scan</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>Search</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>+3 more</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div class="criteraDivImg">
+                                                        <img src="images/add.png" title="Add" width="32" class="addCategoryImg addCategryPop"/>
+                                                        </div>
+                                                        <div class="criteriaDiv"><span>Service dept</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>Gen Docs</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>+5 more</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div class="actionLeft">
+                                                            <a href="#" class="deleteClass1">Delete</a>
+                                                        </div>
+                                                        <div class="actionRight">
+                                                            <a href="#" class="deactivateClass">Deactivate</a>
+                                                        </div>
+                                                        <div class="actionLeft">
+                                                            <a href="#" class="resetPassword">Reset Password</a>
+                                                        </div>
+                                                        <div class="actionRight">
+                                                            <a href="#" class="EditCriteriaClass1 addImg">Edit</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+												<tr>
+                                                	<td colspan="8"  class="transparentTR"></td> 
+                                               	</tr>
+
+
+
+
+                                                <tr>
+                                                    <td valign="top">User name</td>
+                                                    <td valign="top">Name</td>
+                                                    <td valign="top">kinmaker.ktk@gmail.com</td>
+                                                    <td valign="top">********</td>
+                                                    <td valign="top">198.168.1.1</td>
+                                                    <td valign="top">
+                                                        <div class="criteraDivImg">
+                                                        <img src="images/add.png" title="Add" width="32" class="addImg"/>
+                                                        </div>
+                                                        <div class="criteriaDiv"><span>Edit Categories</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>Scan</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>Search</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>+3 more</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div class="criteraDivImg">
+                                                        <img src="images/add.png" title="Add" width="32" class="addCategoryImg addCategryPop"/>
+                                                        </div>
+                                                        <div class="criteriaDiv"><span>Service dept</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>Gen Docs</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>+5 more</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div class="actionLeft">
+                                                            <a href="#" class="deleteClass1">Delete</a>
+                                                        </div>
+                                                        <div class="actionRight">
+                                                            <a href="#" class="deactivateClass">Deactivate</a>
+                                                        </div>
+                                                        <div class="actionLeft">
+                                                            <a href="#" class="resetPassword">Reset Password</a>
+                                                        </div>
+                                                        <div class="actionRight">
+                                                            <a href="#" class="EditCriteriaClass1 addImg">Edit</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+												<tr>
+                                                	<td colspan="8"  class="transparentTR"></td> 
+                                               	</tr>
+
+                                                <tr>
+                                                    <td valign="top">User name</td>
+                                                    <td valign="top">Name</td>
+                                                    <td valign="top">kinmaker.ktk@gmail.com</td>
+                                                    <td valign="top">********</td>
+                                                    <td valign="top">198.168.1.1</td>
+                                                    <td valign="top">
+                                                        <div class="criteraDivImg">
+                                                        <img src="images/add.png" title="Add" width="32" class="addImg"/>
+                                                        </div>
+                                                        <div class="criteriaDiv"><span>Edit Categories</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>Scan</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>Search</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>+3 more</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div class="criteraDivImg">
+                                                        <img src="images/add.png" title="Add" width="32" class="addCategoryImg addCategryPop"/>
+                                                        </div>
+                                                        <div class="criteriaDiv"><span>Service dept</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>Gen Docs</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>+5 more</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div class="actionLeft">
+                                                            <a href="#" class="deleteClass1">Delete</a>
+                                                        </div>
+                                                        <div class="actionRight">
+                                                            <a href="#" class="deactivateClass">Deactivate</a>
+                                                        </div>
+                                                        <div class="actionLeft">
+                                                            <a href="#" class="resetPassword">Reset Password</a>
+                                                        </div>
+                                                        <div class="actionRight">
+                                                            <a href="#" class="EditCriteriaClass1 addImg">Edit</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+												<tr>
+                                                	<td colspan="8"  class="transparentTR"></td> 
+                                               	</tr>
+
+                                                <tr>
+                                                    <td valign="top">User name</td>
+                                                    <td valign="top">Name</td>
+                                                    <td valign="top">kinmaker.ktk@gmail.com</td>
+                                                    <td valign="top">********</td>
+                                                    <td valign="top">198.168.1.1</td>
+                                                    <td valign="top">
+                                                        <div class="criteraDivImg">
+                                                        <img src="images/add.png" title="Add" width="32" class="addImg"/>
+                                                        </div>
+                                                        <div class="criteriaDiv"><span>Edit Categories</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>Scan</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>Search</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>+3 more</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div class="criteraDivImg">
+                                                        <img src="images/add.png" title="Add" width="32" class="addCategoryImg addCategryPop"/>
+                                                        </div>
+                                                        <div class="criteriaDiv"><span>Service dept</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>Gen Docs</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                        <div class="criteriaDiv"><span>+5 more</span> <i class="fas fa-times cancelIcon"></i></div>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div class="actionLeft">
+                                                            <a href="#" class="deleteClass1">Delete</a>
+                                                        </div>
+                                                        <div class="actionRight">
+                                                            <a href="#" class="deactivateClass">Deactivate</a>
+                                                        </div>
+                                                        <div class="actionLeft">
+                                                            <a href="#" class="resetPassword">Reset Password</a>
+                                                        </div>
+                                                        <div class="actionRight">
+                                                            <a href="#" class="EditCriteriaClass1 addImg">Edit</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+												<tr>
+                                                	<td colspan="8"  class="transparentTR"></td> 
+                                               	</tr>                                                                                                
+                                            </tbody>
+                                   </table>
+                                </div>
+                               <!--/***** Body Table Data section End here *************/-->
+                            </div>
+                       </div>
+                   </div>
+              </main>
+            </div>
+        </div>
+    <!--<script src="js/script.js"></script>-->
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<!--/**************Access Pages Popup Start ************/-->
+<div id="dialog">
+    <div class="addCategoryPopupBox1">
+        <form method="post" action="#">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="formText">User Name</td>
+            <td class="formText">Full Name</td>
+          </tr>
+          <tr>
+            <td><input type="text" id="userName" name="userName" value="Arif Khan" class="textTypeClassLeft"/></td>
+            <td><input type="text" id="fullName" name="fullName" value="Muhammad Arif" class="textTypeClassRight"/></td>
+          </tr>
+          <tr>
+            <td class="formText">Email Address</td>
+            <td class="formText">IP</td>
+          </tr>
+          <tr>
+            <td><input type="text" id="email" name="email" value="kinmaker.ktk@gmail.com" class="textTypeClassLeft"/></td>
+            <td><input type="text" id="IP" name="IP" value="198.168.1.1" class="textTypeClassRight"/></td>
+          </tr>
+          <tr>
+            <td class="formText">Categories</td>
+            <td class="formText">Access Pages</td>
+          </tr>
+          <tr>
+            <td>
+            <select class="textTypeClassLeft" id="category" name="category">
+                <option value="Category Name 1">Category Name 1</option>
+                <option value="Category Name 2">Category Name 2</option>
+                <option value="Category Name 3">Category Name 3</option>
+                <option value="Category Name 4">Category Name 4</option>
+                </select>
+            <td>
+                <select class="textTypeClassRight" id="accessPage" name="accessPage">
+                <option value="Access Page 1">Access Page 1</option>
+                <option value="Access Page 2">Access Page 2</option>
+                <option value="Access Page 3">Access Page 3</option>
+                <option value="Access Page 4">Access Page 4</option>
+                </select>
+        
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"><input type="submit" value="Update" class="formButtonClass"/></td>
+          </tr>
+        </table>
+        </form>
+    </div>
+
+</div>
+<!--/**************Access Pages Popup End ************/-->
+<!--/**************Add Category Popup Start ************/-->
+<div id="dialogCategoryPop">
+    <div class="addCategoryPopupBox">
+        <form method="post" action="users.html">
+        <p class="formTextNew"><label class="star">*</label>Category Name</p>
+        <select class="formDropdown" id="categoryName" name="categoryName">
+        <option value="Category 1">Category 1</option>
+        <option value="Category 2">Category 2</option>
+        <option value="Category 3">Category 3</option>
+        <option value="Category 4">Category 4</option>
+        </select>
+        <p class="formText">Keep Files For</p>
+        <select class="formDropdown" id="keepfilesfor" name="keepfilesfor">
+        <option value="7 Years">7 Years</option>
+        <option value="1 Years">1 Years</option>
+        <option value="3 Years">3 Years</option>
+        <option value="5 Years">5 Years</option>
+        </select>
+        <input type="submit" value="Update" class="formButtonClass"/>
+        </form>
+    </div>
+</div>
+<!--/**************Add Category Popup End ************/-->
+
+<!--/**************Add User Popup Start ************/-->
+<div id="dialogCategory">
+    <div class="addCategoryPopupBox1">
+  <p class="popupHeadingCompany1">Add A User (<label class="star">*</label>denotes mendatory fields):</p>
+        <form method="post" action="#">
+        
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="formText">User Name</td>
+            <td class="formText">Full Name</td>
+          </tr>
+          <tr>
+            <td><input type="text" id="userName" name="userName" placeholder="Arif Khan" class="textTypeClassLeft"/></td>
+            <td><input type="text" id="fullName" name="fullName" placeholder="Muhammad Arif" class="textTypeClassRight"/></td>
+          </tr>
+          <tr>
+            <td class="formText">Email Address</td>
+            <td class="formText">Password</td>
+          </tr>
+          <tr>
+            <td><input type="text" id="email" name="email" placeholder="kinmaker.ktk@gmail.com" class="textTypeClassLeft"/></td>
+            <td><input type="text" id="password" name="password" placeholder="123456" class="textTypeClassRight"/></td>
+          </tr>
+          <tr>
+            <td class="formText" colspan="2">IP</td>
+          </tr>
+          <tr>
+            <td colspan="2"><input type="text" id="IP" name="IP" placeholder="198.168.1.1" class="textTypeClassRight"/></td>
+          </tr>
+          <tr>
+            <td class="formText">Categories</td>
+            <td class="formText">Access Pages</td>
+          </tr>
+          <tr>
+            <td>
+            <select class="textTypeClassLeft" id="category" name="category">
+                <option value="Category Name 1">Category Name 1</option>
+                <option value="Category Name 2">Category Name 2</option>
+                <option value="Category Name 3">Category Name 3</option>
+                <option value="Category Name 4">Category Name 4</option>
+                </select>
+            <td>
+                <select class="textTypeClassRight" id="accessPage" name="accessPage">
+                <option value="Access Page 1">Access Page 1</option>
+                <option value="Access Page 2">Access Page 2</option>
+                <option value="Access Page 3">Access Page 3</option>
+                <option value="Access Page 4">Access Page 4</option>
+                </select>
+        
+            </td>
+          </tr>
+          <tr>
+            <td class="middleTableText" colspan="2">OR</td>
+          </tr>
+          <tr>
+            <td class="formText" colspan="2">Copy Settings From User</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+            <select class="textTypeClassRight" id="category" name="category">
+                <option value="">Select categories</option>
+                <option value="Category Name 1">Category Name 1</option>
+                <option value="Category Name 2">Category Name 2</option>
+                <option value="Category Name 3">Category Name 3</option>
+                <option value="Category Name 4">Category Name 4</option>
+                </select>
+          </tr>
+          <tr>
+            <td colspan="2"><input type="submit" value="Add User" class="formButtonClass"/></td>
+          </tr>
+        </table>
+        
+        </form>
+    </div>
+</div>
+<!--/**************Add User Popup End ************/-->
+
+<!--/**************Add User Popup Start ************/-->
+<div id="dialogResetPassword">
+    <div class="addCategoryPopupBox1">
+  <p class="popupHeadingCompany2">Reset Password</p>
+        <form method="post" action="#">
+        
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          
+          <tr>
+            <td><input type="text" id="password" name="password" value="123456" class="textTypeClassRight"/></td>
+          </tr>
+          <tr>
+            <td ><input type="submit" value="Update" class="formButtonClass"/></td>
+          </tr>
+        </table>
+        
+        </form>
+    </div>
+</div>
+<!--/**************Add User Popup End ************/-->
+
+
+    </body>
+</html>

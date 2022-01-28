@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>:: Title will  be here ::</title>
+        <!--<link href="css/styles.css" rel="stylesheet" />-->
+        <link href="css/style2.css" rel="stylesheet" />
+        <!--<link rel="stylesheet" type="text/css" href="css/jquery.dropdown.css">-->
+        <!--/*********** jquery UI Css used only fot tooltip ************/-->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="js/jquery.dropdown.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+		<script type="text/javascript" src="js/paging.js"></script> 
+		<script type="text/javascript">
+			$(document).ready(function() {
+			
+$( ".leftMenuPanel" ).click(function() {
+	$(".leftMenuDropdown").toggle();
+});
+				$('#tableData').paging({limit:5});
+			});
+
+			$( function() {
+			var dialog;
+			dialog = $( "#dialog" ).dialog({
+			autoOpen: false,
+			height: 'auto',
+			/*width: 448,*/
+			width: 400,
+			modal: true,
+			create: function() {
+			$(".ui-dialog").find(".ui-dialog-titlebar").css({
+			'background-image': 'none',
+			'background-color': 'transparent',
+			'border': 'none'
+			});
+			}
+			});
+			$( ".addImg" ).on( "click", function() {
+			dialog.dialog( "open" );
+			});
+			} );
+			
+ /************ Add Category ***************/
+			 $( function() {
+				var dialogCategory;
+				dialogCategory = $( "#dialogCategory" ).dialog({
+				  autoOpen: false,
+				  height: 'auto',
+				  width: 470,
+				  modal: true,
+				  create: function() {
+				  $(".ui-dialog").find(".ui-dialog-titlebar").css({
+					'background-image': 'none',
+					'background-color': 'transparent',
+					'border': 'none'
+				  });
+				  }
+				});
+				$( ".addCategryPop" ).on( "click", function() {
+				  dialogCategory.dialog( "open" );
+				});
+			  }); 
+  		</script>
+    </head>
+    <body class="sb-nav-fixed">
+        <!--/**************** Top Header Section Start Here ************************/-->
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand ps-3" href="#"><img src="images/logo.png" width="80"/></a>
+            <select class="categoryDropdownInner">
+                <option value="category 1">Edit Category</option>
+                <option value="category 1">Edit Category</option>
+                <option value="category 1">Edit Category</option>
+                <option value="category 1">Edit Category</option>
+            </select>
+            
+            <ul class="navbar-nav ms-auto topMenuAlign">
+                <li class="nav-item dropdown">
+                    <span class="profileName">Muhammad Arif</span><img src="images/profileIcon.png" alt="Profile" title="Profile" id="a2"  class="profileIcon"/> </a>
+	            </li>
+            </ul>
+            
+            <div class="leftMenuHideImg">
+            	<img src="images/leftIcon.png" class="leftMenuPanel"/>
+            </div>
+            
+            <div class="leftMenuDropdown">
+                <ul class="dropdown-menu dropdown-menu-end rightDivPop" style="display:block;" id="rightMenu">
+                    <li> 
+                    <a class="nav-link active" href="categry.html">
+                        <div class="sb-nav-link-icon"><i class="far fa-file-alt fa-2x"></i></div>
+                    </a>
+                    </li>
+                    <li>
+                    <a class="nav-link" href="#">
+                        <div class="sb-nav-link-icon"><i class="far fa-bell fa-2x"></i></div>
+                    </a>
+                    </li>
+                </ul>
+            </div>
+          </nav>
+        <!--/**************** Top Header Section End Here ************************/-->
+        <!--/**************** Body Section Start Here ************************/-->
+        <div id="layoutSidenav">
+        <!--/**************** Left Menu Section Start Here ************************/-->
+            <div id="layoutSidenav_nav">
+                	<nav class="sb-sidenav sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <a class="nav-link active" href="categry.html">
+                                <div class="sb-nav-link-icon"><i class="far fa-file-alt fa-2x"></i></div>
+                            </a>
+                            <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="far fa-bell fa-2x"></i></div>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        <!--/**************** Left Menu Section End Here ************************/-->
+        
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                    	<div class="card mb-4 mt-4 nobackground" >
+                            
+                            <div class="card-bodyInner">
+                                    
+                                    
+                                    <div class="searchBoxQuick">
+                                    	<div class="quickSearchTextLeft"></div>
+                                        <div class="searchAreaPower">Search</div>
+                                        <div class="powerRight"></div>
+                                    
+                                    </div>
+                                    <div class="searchBoxQuick" style="margin-bottom:70px;">
+                                        <div class="quickSearchTextLeft">Power Search</div>
+                                        <div class="searchAreaQuick"> <input type="search" class="quickSearchBoxClass" placeholder="Search Text"/></div>
+                                        <div  class="searchBoxRight"><img src="images/searchBox.png" width="100%" height="100%"/></div>
+                                    </div>
+                                <div class="totalPowerSearchPanel">
+                                	<div class="powerSearchLeft">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                          <tr>
+                                            <td class="powerSubHead" colspan="2">Company</td>
+                                            <td class="powerLink" colspan="2">See All</td>
+                                          </tr>
+                                          <tr height="60">
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Apartment Complex</td>
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Demo 2</td>
+                                          </tr>
+                                          <tr height="60">
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Demo 3</td>
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Demo 4</td>
+                                          </tr>
+                                          <tr height="60">
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Demo 5</td>
+                                            <td valign="middle"></td>
+                                            <td class="powerTableData" valign="middle"></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="powerLink2" colspan="4" align="left">Check All</td>
+                                          </tr>
+                                        </table>
+                                    </div>
+                                	<div class="powerSearchLeft">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                          <tr>
+                                            <td class="powerSubHead" colspan="2">Categories</td>
+                                            <td class="powerLink" colspan="2">See All</td>
+                                          </tr>
+                                          <tr height="60">
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+
+                                            <td class="powerTableData" valign="middle">Lock Categories</td>
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Lock Categories</td>
+                                          </tr>
+                                          <tr height="60">
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Lock Categories</td>
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Lock Categories</td>
+                                          </tr>
+                                          <tr height="60">
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Lock Categories</td>
+                                            <td valign="middle"></td>
+                                            <td class="powerTableData" valign="middle"></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="powerLink2" colspan="4" align="left">Check All</td>
+                                          </tr>
+                                        </table>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                          <tr>
+                                            <td class="powerSubHead" colspan="2">D</td>
+                                            <td class="powerLink" colspan="2"></td>
+                                          </tr>
+                                          <tr height="60">
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Lock Categories</td>
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Lock Categories</td>
+                                          </tr>
+                                          <tr height="60">
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Lock Categories</td>
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Lock Categories</td>
+                                          </tr>
+                                          <tr height="60">
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Lock Categories</td>
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Lock Categories</td>
+                                          </tr>
+                                          <tr height="60">
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Lock Categories</td>
+                                            <td valign="middle"> <input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/></td>
+                                            <td class="powerTableData" valign="middle">Lock Categories</td>
+                                          </tr>
+                                        </table>
+                                    </div>
+                                    <div class="powerSearchLeft">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                          <tr>
+                                            <td class="powerSubHead" colspan="3">Document</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="powerSubHead" colspan="3">Date From</td>
+                                          </tr>
+                                          <tr height="60">
+                                              <td>
+                                                <select class="powerSearchDropdown1" id="startDate" name="startDate">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="13">13</option>
+                                                    <option value="14">14</option>
+                                                    <option value="15">15</option>
+                                                    <option value="16">16</option>
+                                                    <option value="17">17</option>
+                                                    <option value="18">18</option>
+                                                    <option value="19">19</option>
+                                                    <option value="20">20</option>
+                                                    <option value="21">21</option>
+                                                    <option value="22">22</option>
+                                                    <option value="23">23</option>
+                                                    <option value="24">24</option>
+                                                    <option value="25">25</option>
+                                                    <option value="26">26</option>
+                                                    <option value="27">27</option>
+                                                    <option value="28">28</option>
+                                                    <option value="29">29</option>
+                                                    <option value="30">30</option>
+                                                    <option value="31">31</option>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <select class="powerSearchDropdown1" id="startMonth" name="startMonth">
+                                                    <option value="01">01</option>
+                                                    <option value="02">02</option>
+                                                    <option value="03">03</option>
+                                                    <option value="04">04</option>
+                                                    <option value="05">05</option>
+                                                    <option value="06">06</option>
+                                                    <option value="07">07</option>
+                                                    <option value="08">08</option>
+                                                    <option value="09">09</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <select class="powerSearchDropdown1" id="startYear" name="startYear">
+                                                    <option value="2020">2020</option>
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+                                                    <option value="2028">2028</option>
+                                                    <option value="2029">2029</option>
+                                                    <option value="2030">2030</option>
+                                                </select>
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                            <td class="powerSubHead" colspan="3">Date To</td>
+                                          </tr>
+                                          <tr height="60">
+                                              <td>
+                                                <select class="powerSearchDropdown1" id="toDate" name="toDate">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="13">13</option>
+                                                    <option value="14">14</option>
+                                                    <option value="15">15</option>
+                                                    <option value="16">16</option>
+                                                    <option value="17">17</option>
+                                                    <option value="18">18</option>
+                                                    <option value="19">19</option>
+                                                    <option value="20">20</option>
+                                                    <option value="21">21</option>
+                                                    <option value="22">22</option>
+                                                    <option value="23">23</option>
+                                                    <option value="24">24</option>
+                                                    <option value="25">25</option>
+                                                    <option value="26">26</option>
+                                                    <option value="27">27</option>
+                                                    <option value="28">28</option>
+                                                    <option value="29">29</option>
+                                                    <option value="30">30</option>
+                                                    <option value="31">31</option>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <select class="powerSearchDropdown1" id="toMonth" name="toMonth">
+                                                    <option value="01">01</option>
+                                                    <option value="02">02</option>
+                                                    <option value="03">03</option>
+                                                    <option value="04">04</option>
+                                                    <option value="05">05</option>
+                                                    <option value="06">06</option>
+                                                    <option value="07">07</option>
+                                                    <option value="08">08</option>
+                                                    <option value="09">09</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <select class="powerSearchDropdown1" id="toYear" name="toYear">
+                                                    <option value="2020">2020</option>
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+                                                    <option value="2028">2028</option>
+                                                    <option value="2029">2029</option>
+                                                    <option value="2030">2030</option>
+                                                </select>
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                            <td class="powerText" colspan="3"><input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/> Toggle Doucment Date</td>
+                                          </tr>
+                                        </table>
+                                    </div>
+                                	<div class="powerSearchRight">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                          <tr>
+                                            <td class="powerSubHead" colspan="3">Scanned</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="powerSubHead" colspan="3">Date From</td>
+                                          </tr>
+                                          <tr height="60">
+                                              <td>
+                                                <select class="powerSearchDropdown1" id="scannedstartDate" name="scannedstartDate">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="13">13</option>
+                                                    <option value="14">14</option>
+                                                    <option value="15">15</option>
+                                                    <option value="16">16</option>
+                                                    <option value="17">17</option>
+                                                    <option value="18">18</option>
+                                                    <option value="19">19</option>
+                                                    <option value="20">20</option>
+                                                    <option value="21">21</option>
+                                                    <option value="22">22</option>
+                                                    <option value="23">23</option>
+                                                    <option value="24">24</option>
+                                                    <option value="25">25</option>
+                                                    <option value="26">26</option>
+                                                    <option value="27">27</option>
+                                                    <option value="28">28</option>
+                                                    <option value="29">29</option>
+                                                    <option value="30">30</option>
+                                                    <option value="31">31</option>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <select class="powerSearchDropdown1" id="scannedstartMonth" name="scannedstartMonth">
+                                                    <option value="01">01</option>
+                                                    <option value="02">02</option>
+                                                    <option value="03">03</option>
+                                                    <option value="04">04</option>
+                                                    <option value="05">05</option>
+                                                    <option value="06">06</option>
+                                                    <option value="07">07</option>
+                                                    <option value="08">08</option>
+                                                    <option value="09">09</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <select class="powerSearchDropdown1" id="scannedstartYear" name="scannedstartYear">
+                                                    <option value="2020">2020</option>
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+                                                    <option value="2028">2028</option>
+                                                    <option value="2029">2029</option>
+                                                    <option value="2030">2030</option>
+                                                </select>
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                            <td class="powerSubHead" colspan="3">Date To</td>
+                                          </tr>
+                                          <tr height="60">
+                                              <td>
+                                                <select class="powerSearchDropdown" id="toDate" name="toDate">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="13">13</option>
+                                                    <option value="14">14</option>
+                                                    <option value="15">15</option>
+                                                    <option value="16">16</option>
+                                                    <option value="17">17</option>
+                                                    <option value="18">18</option>
+                                                    <option value="19">19</option>
+                                                    <option value="20">20</option>
+                                                    <option value="21">21</option>
+                                                    <option value="22">22</option>
+                                                    <option value="23">23</option>
+                                                    <option value="24">24</option>
+                                                    <option value="25">25</option>
+                                                    <option value="26">26</option>
+                                                    <option value="27">27</option>
+                                                    <option value="28">28</option>
+                                                    <option value="29">29</option>
+                                                    <option value="30">30</option>
+                                                    <option value="31">31</option>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <select class="powerSearchDropdown" id="toMonth" name="toMonth">
+                                                    <option value="01">01</option>
+                                                    <option value="02">02</option>
+                                                    <option value="03">03</option>
+                                                    <option value="04">04</option>
+                                                    <option value="05">05</option>
+                                                    <option value="06">06</option>
+                                                    <option value="07">07</option>
+                                                    <option value="08">08</option>
+                                                    <option value="09">09</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <select class="powerSearchDropdown" id="toYear" name="toYear">
+                                                    <option value="2020">2020</option>
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+                                                    <option value="2028">2028</option>
+                                                    <option value="2029">2029</option>
+                                                    <option value="2030">2030</option>
+                                                </select>
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                            <td class="powerText" colspan="3"><input type="checkbox" name="daynignt" id="daynight" value="1" class="powerCheck"/> Toggle Scanned Date</td>
+                                          </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                
+                                                                    
+                            </div>
+                       </div>
+                   </div>
+              </main>
+            </div>
+        </div>
+    <!--<script src="js/script.js"></script>-->
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<!--/**************Criteria Popup Start ************/-->
+
+<!--/**************Criteria Popup End ************/-->
+<!--/**************Add Category Popup Start ************/-->
+<!--/**************Add Category Popup End ************/-->
+
+    </body>
+</html>

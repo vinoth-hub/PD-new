@@ -1,0 +1,118 @@
+<div Class="innerHeading">
+	User Permission and Settings
+</div>
+<div class="menuSect">
+	<div Class="menuLast">
+		<div class="menuRightDiv" >
+			<img src="assets/images/addIcon.png" class="addIconClass addUserPop">
+		</div>
+		<div class="menuDivText addUserPop">
+			Copy User
+		</div>
+	</div>
+	<div Class="menuSecond">
+		<div class="menuRightDiv" >
+			<img src="assets/images/addIcon.png" class="addIconClass addUserPop">
+		</div>
+		<div class="menuDivText addUserPop">
+			Add User
+		</div>
+	</div>
+	<div Class="menuFirst">
+		<ul>
+			<li><a href="companies.html">Companies</a></li>
+			<li><a href="category.html">Categories</a></li>
+			<li><a href="users.html">Users</a></li>
+		</ul>
+	</div>
+</div>
+<div class="menuSect1">
+	<img src="assets/images/leftIcon.png" class="leftMenuPanel1"/>
+</div>
+<div class="smallMenu">
+	<ul class="dropdown-menu dropdown-menu-end" style="display:block; width:100%;" id="rightMenu">
+		<li><a href="companies.html">Companies</a></li>
+		<li><a href="category.html">Categories</a></li>
+		<li><a href="users.html">Users</a></li>
+		<li><a href="#" class="addUserPop">Copy User</a></li>
+		<li><a href="#" class="addUserPop">Add User</a></li>
+	</ul>
+</div>
+<!--/***** Body menu section End here *************/--> 
+<!--/***** Body Table Data section start here *************/-->
+<div  class="tableWrapper">
+	<table class="tableClass" width="0" cellpadding="0" cellspacing="0" id="tableData">
+		<thead>
+			<tr>
+				<th>User name</th>
+				<th>UID</th>
+				<th width="18%">Access Pages</th>
+				<th width="18%">Categories</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<ng-template ngFor let-item [ngForOf]="users" let-i="index">
+				<tr>
+					<td valign="top">{{users[i].username}}</td>
+					<td valign="top">{{users[i].userID}}</td>
+					<td valign="top">
+						<div class="criteraDivImg">
+							<img src="assets/images/add.png" title="Add" width="32" class="addImg"/>
+						</div>
+						<ng-template [ngIf]="users[i].categoryListSummary">
+							<div class="criteriaDiv" *ngFor="let item of users[i].categoryListSummary"><span>{{item}}</span></div>
+							<div class="criteriaDiv"><span>+{{users[i].categoryList.length - 3}} more</span></div>
+						</ng-template>
+						<ng-template [ngIf]="!users[i].categoryListSummary">
+							<div class="criteriaDiv" *ngFor="let item of users[i].categoryList"><span>{{item}}</span></div>
+						</ng-template>
+					</td>
+					<td valign="top">
+						<div class="criteraDivImg">
+							<img src="assets/images/add.png" title="Add" width="32" class="addImg"/>
+						</div>
+						<ng-template [ngIf]="users[i].levelListSummary">
+							<div class="criteriaDiv" *ngFor="let item of users[i].levelListSummary"><span>{{item}}</span></div>
+							<div class="criteriaDiv"><span>+{{users[i].levelList.length - 3}} more</span></div>
+						</ng-template>
+						<ng-template [ngIf]="!users[i].levelListSummary">
+							<div class="criteriaDiv" *ngFor="let item of users[i].levelList"><span>{{item}}</span></div>
+						</ng-template>
+					</td>
+					<td valign="top">
+						<div class="actionLeft">
+							<a href="#" class="deleteClass1">Delete</a>
+						</div>
+						<div class="actionRight">
+							<a href="#" class="deactivateClass">Deactivate</a>
+						</div>
+						<div class="actionLeft">
+							<a href="#" class="resetPassword">Reset Password</a>
+						</div>
+						<div class="actionRight">
+							<a href="#" class="EditCriteriaClass1 addImg">Edit</a>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="8"  class="transparentTR"></td>
+				</tr>
+			</ng-template>
+		</tbody>
+	</table>
+    <div class="paginateContainer">
+        <ul class="paginateList">
+            <li class="paginatePrevious {{pagination.getPreviousDisabled() ? 'paginateDisabled' : ''}}" (click)="paginatePrevious()">
+                <a class="paginateAnchor">&lt;</a>
+            </li>
+            <li class="paginatePage {{pagination.getActiveIndex() === i ? 'paginateActive' : ''}}" *ngFor="let page of pagination.getPages(); index as i;" (click)="paginateTo(page)">
+                <a class="paginateAnchor">{{page}}</a>
+            </li>
+            <li class="paginateNext {{pagination.getNextDisabled() ? 'paginateDisabled' : ''}}" (click)="paginateNext()">
+                <a class="paginateAnchor">&gt;</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--/***** Body Table Data section End here *************/-->

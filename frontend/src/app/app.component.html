@@ -1,0 +1,73 @@
+<body class="sb-nav-fixed">
+	<!--/**************** Top Header Section Start Here ************************/-->
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" *ngIf="authState">
+		<a class="navbar-brand ps-3" href="#"><img src="assets/images/logo.png" width="80"/></a>
+		<select class="categoryDropdownInner" [(ngModel)]="selectedCompany" (change)="companyChanged()">
+			<option [value]="company.companyID" *ngFor="let company of companies">{{company.name}}</option>
+		</select>
+		<ul class="navbar-nav ms-auto topMenuAlign">
+			<li class="nav-item dropdown">
+				<span class="profileName">Muhammad Arif</span><img src="assets/images/profileIcon.png" alt="Profile" title="Profile" id="a2"  class="profileIcon"/>
+			</li>
+		</ul>
+		<div class="leftMenuHideImg">
+			<img src="assets/images/leftIcon.png" class="leftMenuPanel"/>
+		</div>
+		<div class="leftMenuDropdown">
+			<ul class="dropdown-menu dropdown-menu-end rightDivPop" style="display:block;" id="rightMenu">
+				<li>
+					<a class="nav-link active" href="category.html">
+						<div class="sb-nav-link-icon"><i class="far fa-file-alt fa-2x"></i></div>
+					</a>
+				</li>
+				<li>
+					<a class="nav-link" href="#">
+						<div class="sb-nav-link-icon"><i class="far fa-bell fa-2x"></i></div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<!--/**************** Top Header Section End Here ************************/-->
+	<!--/**************** Body Section Start Here ************************/-->
+	<div id="layoutSidenav" *ngIf="authState">
+		<!--/**************** Left Menu Section Start Here ************************/-->
+		<div id="layoutSidenav_nav" >
+			<nav class="sb-sidenav sb-sidenav-dark" id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<a class="nav-link active" href="#">
+							<div class="sb-nav-link-icon"><i class="far fa-file-alt fa-2x"></i></div>
+						</a>
+						<a class="nav-link" href="#">
+							<div class="sb-nav-link-icon"><i class="far fa-bell fa-2x"></i></div>
+						</a>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<!--/**************** Left Menu Section End Here ************************/-->
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid px-4">
+					<div class="card mb-4 mt-4" >
+						<div class="card-bodyInner">
+							<router-outlet></router-outlet>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+	<div id="layoutSidenav_content" *ngIf="!authState">
+		<main>
+			<div class="container-fluid px-4">
+				<div class="card mb-4 mt-4" >
+					<div class="card-bodyInner">
+						<router-outlet></router-outlet>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</body>

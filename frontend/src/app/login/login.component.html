@@ -1,0 +1,17 @@
+<div id="layoutSidenav_content">
+	<main>
+		<div class="container-fluid px-4">
+			<div class="card mb-4 mt-4 topLandingPage" >
+				<img src="assets/images/logo.png" alt="Logo" title="Logo" width="152.6" class="loginLogo"/>
+				<p class="loginHeading">Login</p>
+				<div class="loginBox">
+					<input type="text" class="textBoxClass" [(ngModel)]="loginForm.userName" placeholder="User Name"/>
+					<input type="password" class="textBoxClass" [(ngModel)]="loginForm.password" placeholder="Password"/>
+					<input type="text" class="textBoxClass" [(ngModel)]="loginForm.companyName" placeholder="Company Name"/>
+					<input type="text" class="textBoxClass" [(ngModel)]="loginForm.tenantName" placeholder="Tenant Name"/>
+					<input type="submit" name="login" id="login" value="Login" class="buttonClass" (click)="doLogin()"/>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
