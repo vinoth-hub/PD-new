@@ -45,7 +45,7 @@
 		<thead>
 			<tr>
 				<th>User name</th>
-				<th>UID</th>
+				<th>Email Address</th>
 				<th width="18%">Access Pages</th>
 				<th width="18%">Categories</th>
 				<th>Actions</th>
@@ -55,7 +55,7 @@
 			<ng-template ngFor let-item [ngForOf]="users" let-i="index">
 				<tr>
 					<td valign="top">{{users[i].username}}</td>
-					<td valign="top">{{users[i].userID}}</td>
+					<td valign="top">{{users[i].title}}</td>
 					<td valign="top">
 						<div class="criteraDivImg">
 							<img src="assets/images/add.png" title="Add" width="32" class="addImg"/>
@@ -82,16 +82,16 @@
 					</td>
 					<td valign="top">
 						<div class="actionLeft">
-							<a href="#" class="deleteClass1">Delete</a>
+							<a href="javascript:void(0);" class="deleteClass1" (click)="deleteUser(users[i].userID)">Delete</a>
 						</div>
 						<div class="actionRight">
-							<a href="#" class="deactivateClass">Deactivate</a>
+							<a href="javascript:void(0);" class="deactivateClass"  (click)="deactivateUser(users[i].userID)">Deactivate</a>
 						</div>
 						<div class="actionLeft">
-							<a href="#" class="resetPassword">Reset Password</a>
+							<a href="javascript:void(0);" class="resetPassword" (click)="resetPassword(users[i].userID, users[i].title)">Reset Password</a>
 						</div>
 						<div class="actionRight">
-							<a href="#" class="EditCriteriaClass1 addImg">Edit</a>
+							<a href="javascript:void(0);" class="EditCriteriaClass1 addImg">Edit</a>
 						</div>
 					</td>
 				</tr>

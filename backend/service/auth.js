@@ -90,5 +90,21 @@ module.exports = {
                 if (conn) return conn.end();
             }
         }
+    },
+    generatePassword: async(req, res, next) => {
+        try{
+            req.newPassword = {};
+            var password = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=[]{}|;,.<>?`~';
+            var charactersLength = characters.length;
+            while(password.length < 10)
+                password += characters.charAt(Math.floor(Math.random() * charactersLength));
+            req.newPassword.password = password;
+            req.newPassword.hash = await bcrypt.hash(password,0);
+            next();
+        }
+        catch(err){
+            res.sendStatus(500);
+        }
     }
 }

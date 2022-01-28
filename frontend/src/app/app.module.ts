@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Interceptor } from './interceptor/interceptor';
@@ -33,6 +33,7 @@ import { UserComponent } from './user/user/user.component';
         warning: 'toast-warning',
       }
     }),
+    BrowserAnimationsModule
   ],
   providers: [
     LoginService,
