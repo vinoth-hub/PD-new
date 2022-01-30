@@ -62,7 +62,6 @@ module.exports = {
         }
         if(token.startsWith('Bearer'))
             token = token.split(' ')[1];
-        let conn;
         try{
             req.decodedJwt = jwt.verify(token, secret);
             next();
@@ -73,9 +72,6 @@ module.exports = {
                 return
             }
             helpers.handleError(res, err);
-        }
-        finally{
-            if (conn) return conn.end();
         }
     },
     authorize:{

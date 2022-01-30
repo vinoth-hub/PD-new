@@ -130,4 +130,13 @@ export class UserComponent implements OnInit {
     this.userForm.user.categoryList = tsDetails.categoryList.split(',');
     this.userForm.user.levelList = tsDetails.levelList.split(',');
   }
+  async forceLogout(userId: number):Promise<void>{
+    try{
+      await lastValueFrom(this.userService.forceLogout(userId));
+      this.toastr.success('User logged out');
+    }
+    catch(err){
+      this.toastr.error('Something went wrong');
+    }
+  }
 }

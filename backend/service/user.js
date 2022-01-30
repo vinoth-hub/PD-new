@@ -24,13 +24,13 @@ module.exports = {
         try{
             conn = await pool.getConnection();
             var response = {};
-            var subQuery = `(select u.username, u.userID, c.category, s.level, u.ip, u.title
+            var subQuery = `(select u.username, u.userID, c.category, s.level, u.ip, u.title, u.fullname
             from ${req.decodedJwt.db}.user u left join ${req.decodedJwt.db}.transsecurity t on u.userID = t.userID
             inner join ${req.decodedJwt.db}.company c2 on c2.companyID = t.companyID 
             left join ${req.decodedJwt.db}.security s on t.securityID = s.securityID and t.companyID = s.companyID 
             left join ${req.decodedJwt.db}.category c on t.categoryID = c.categoryID and t.companyID = c.companyID 
             where c2.companyID = ${req.query.selectedCompany} and u.isDeleted = 0)`; // TO-DO: Check for SQLi
-            var query = `select sq.username, sq.userID, group_concat(sq.category) as categoryList, group_concat(sq.level)as levelList, sq.ip, sq.title from `
+            var query = `select sq.username, sq.userID, sq.fullname as fullName, group_concat(sq.category) as categoryList, group_concat(sq.level)as levelList, sq.ip, sq.title from `
             + subQuery + 
             `as sq group by sq.userID order by sq.userID limit ${3 * (req.query.pageNumber - 1)},3`
             let rows = await conn.query(query);
@@ -280,6 +280,21 @@ module.exports = {
                 `);
              }
              next()
+        }
+        catch(err){
+            helpers.handleError(res, err);
+        }
+        finally{
+            if (conn) return conn.end();
+        }
+    },
+    forceLogout: async(req, res) => {
+        var conn;
+        try{
+            conn = await pool.getConnection();
+            var lastActivity = new Date(0);
+            await conn.query(`UPDATE ${req.decodedJwt.db}.\`user\` SET lastactivity=? WHERE userID=?`,[helpers.prepareDateForMaria(lastActivity), req.params.userId]);
+            res.sendStatus(204);
         }
         catch(err){
             helpers.handleError(res, err);

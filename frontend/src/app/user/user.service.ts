@@ -40,4 +40,7 @@ export class UserService {
   loadTransSecurity(userID: number): Observable<unknown> {
     return this.httpClient.get(this.baseUrl + userID + '/ts-details');
   }
+  forceLogout(userId: number):Observable<any>{
+    return this.httpClient.put(`${this.baseUrl}${userId}/force-logout`, {})
+  }
 }
