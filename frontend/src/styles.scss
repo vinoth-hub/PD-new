@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    background-color: #F5F5F5;
+}
 .ng-select{
     &.ng-select-multiple{
         .ng-select-container{
@@ -12,4 +15,9 @@
 }
 .bg-theme{
     background: linear-gradient(90deg, #3D8AFF 0%, #29D645 98.3%)
+}
+.card{
+    &.not-bs-card{
+        border: none;
+    }
 }
