@@ -19,5 +19,7 @@ module.exports = {
         connectionLimit: 5,
         port:3306,
     },
-    jwtEncodingSecret: 'apfsds'
+    jwtEncodingSecret: 'apfsds',
+    isProd: false, // For debugging! Make true in prod for security!
+    autoLogOutAfterMins: 20
 }

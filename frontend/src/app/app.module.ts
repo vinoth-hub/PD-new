@@ -10,6 +10,8 @@ import { Interceptor } from './interceptor/interceptor';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { UserComponent } from './user/user/user.component';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { UserComponent } from './user/user/user.component';
         warning: 'toast-warning',
       }
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgSelectModule
   ],
   providers: [
     LoginService,
@@ -42,7 +45,8 @@ import { UserComponent } from './user/user/user.component';
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
       multi: true
-    }
+    },
+    BsModalService
   ],
   bootstrap: [AppComponent]
 })

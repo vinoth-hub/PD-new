@@ -18,7 +18,12 @@ module.exports = {
                 next();
         }
         catch(err){
-            res.sendStatus(200);
+            if(config.isProd)
+                res.sendStatus(500);
+            else{
+                res.status(500);
+                res.send(err);
+            }
         }
     },
     passwordReset: async(req, res) => {
@@ -36,7 +41,12 @@ module.exports = {
             res.sendStatus(200);
         }
         catch(err){
-            res.sendStatus(200);
+            if(config.isProd)
+                res.sendStatus(500);
+            else{
+                res.status(500);
+                res.send(err);
+            }
         }
     },
 }

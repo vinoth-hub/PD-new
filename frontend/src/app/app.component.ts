@@ -14,16 +14,22 @@ import { Company } from './view-models/company.view-model';
 export class AppComponent {
   title = 'pd';
   jwt:string = '';
-  selectedCompany: string | undefined = '';
+  selectedCompany: string = '';
   companies:Company[] = [];
   authState: boolean = false;
+  accessDenied: boolean = false;
   constructor(private loginService:LoginService, private router:Router, private cookieService:CookieService, private appService:AppService){
-    this.loginService.authState.subscribe((state:boolean) => {
+    this.loginService.authState.subscribe(async (state:boolean) => {
       if(!state)
         this.router.navigate(['/login']);
-      else
+      else{
+        await this.initCompanyDropdown();
         this.router.navigate(['/user'])
+      }
       this.authState = state;
+    })
+    this.loginService.accessDenied.subscribe((deny) => {
+      this.accessDenied = deny;
     })
   }
   async ngOnInit(): Promise<void> {
@@ -31,17 +37,24 @@ export class AppComponent {
     if(!this.jwt)
       this.loginService.challenge();
     else{
-      await this.fillCompanyDropdown();
-      this.selectedCompany = sessionStorage.getItem('selectedCompany') as string;
+      await this.initCompanyDropdown();
       this.loginService.authState.next(true);
     }
       
+  }
+  async initCompanyDropdown():Promise<void> {
+    if(!this.companies.length)
+      await this.fillCompanyDropdown();
+    if(this.cookieService.get('selectedCompany'))
+      this.selectedCompany = this.cookieService.get('selectedCompany');
+    else
+      this.selectedCompany = this.companies[0].name;
   }
   async fillCompanyDropdown(): Promise<void> {
     this.companies = await lastValueFrom(this.appService.getCompanyList());
   }
   companyChanged():void{
-    sessionStorage.setItem('selectedCompany', this.selectedCompany as string);
+    this.cookieService.set('selectedCompany', this.selectedCompany);
     window.location.reload();
   }
 }

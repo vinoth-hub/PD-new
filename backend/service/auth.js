@@ -2,6 +2,7 @@ var jwt = require('jsonwebtoken');
 const mariadb = require('mariadb');
 const bcrypt = require('bcrypt');
 const config = require('../shared/config');
+const helpers = require('../shared/helpers');
 const pool = mariadb.createPool(config.db);
 const secret = config.jwtEncodingSecret;
 module.exports = {
@@ -28,28 +29,32 @@ module.exports = {
                 res.send('Wrong password')
                 return;
             }
-            var token = jwt.sign({ // HMAC SHA256
+            var decodedJwt = { // HMAC SHA256
                 userId: user.userID,
                 companyId: user.defaultcompany,
                 tenantId: folders[0].tenantID,
                 db: db
-            },secret);
-            res.send({
+            };
+            var token = jwt.sign(decodedJwt, secret);
+            req.loginResult = {
                 token: token,
                 defaultcompany: user.defaultcompany
-            });
-            req.userId = user.usersID;
+            }
+            req.decodedJwt = decodedJwt
             next();
         }
         catch(err){
-            console.error(err);
-            req.sendStatus(500)
+            helpers.handleError(res, err);
         }
         finally{
             if (conn) return conn.end();
         }
     },
     decodeJwt: (req, res, next) => {
+        if(req.decodedJwt){
+            next();
+            return;
+        }
         let token = req.headers.authorization;
         if(!token || !token.length){
             res.sendStatus(401);
@@ -63,7 +68,11 @@ module.exports = {
             next();
         }
         catch(err){
-            res.sendStatus(500);
+            if(err instanceof jwt.JsonWebTokenError){
+                res.sendStatus(401);
+                return
+            }
+            helpers.handleError(res, err);
         }
         finally{
             if (conn) return conn.end();
@@ -77,14 +86,14 @@ module.exports = {
                 var rows = await conn.query(`select count(1) from ${req.decodedJwt.db}.transsecurity t 
                 inner join ${req.decodedJwt.db}.\`security\` s on t.securityID = s.securityID and t.companyID = s.companyID 
                 where t.userID  = ${req.decodedJwt.userId} and t.companyID = ${req.query.selectedCompany} and \`level\` = 'Edit Users'`)
-                if(!rows || !rows[0]){
+                if(!rows || !rows[0] || !rows[0]["count(1)"]){
                     res.sendStatus(403);
                     return;
                 }
                 next();
             }
             catch(err){
-                res.sendStatus(500);
+                helpers.handleError(res, err);
             }
             finally{
                 if (conn) return conn.end();
@@ -104,7 +113,33 @@ module.exports = {
             next();
         }
         catch(err){
-            res.sendStatus(500);
+            helpers.handleError(res, err);
+        }
+    },
+    checkLastActivity: async (req, res, next) => {
+        let conn;
+        try{
+            conn = await pool.getConnection();
+            var rows = await conn.query(`SELECT lastactivity FROM ${req.decodedJwt.db}.user WHERE userID = ${req.decodedJwt.userId}`)
+            if(!rows.length){
+                res.sendStatus(403);
+                return;
+            }
+            if(rows[0].lastactivity){
+                var now = helpers.prepareDateForMaria(new Date());
+                var minsDifference = (new Date(now) - rows[0].lastactivity)/(1000 * 60);
+                if(minsDifference > config.autoLogOutAfterMins){
+                    res.sendStatus(401);
+                    return;
+                }
+            }
+            next();
+        }
+        catch(err){
+            helpers.handleError(res, err);
+        }
+        finally{
+            if (conn) return conn.end();
         }
     }
 }

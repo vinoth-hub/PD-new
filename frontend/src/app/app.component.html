@@ -51,9 +51,15 @@
 			<main>
 				<div class="container-fluid px-4">
 					<div class="card mb-4 mt-4" >
-						<div class="card-bodyInner">
+						<div class="card-bodyInner" *ngIf="!accessDenied">
 							<router-outlet></router-outlet>
 						</div>
+						<div *ngIf="accessDenied">
+							<h1>
+							  Access Denied
+							</h1>
+							<p>You don't have access to this feature</p>
+						  </div>
 					</div>
 				</div>
 			</main>

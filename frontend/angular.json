@@ -33,7 +33,8 @@
             "styles": [
               "src/styles.scss",
               "src/assets/css/jquery.paginate.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/@ng-select/ng-select/themes/material.theme.css"
             ],
             "scripts": []
           },

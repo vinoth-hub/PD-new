@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     try{
       let response = await lastValueFrom(this.loginService.doLogin(this.loginForm.userName, this.loginForm.password, this.loginForm.tenantName, this.loginForm.companyName));
       this.cookieService.set('jwt', response.token);
-      sessionStorage.setItem('selectedCompany', response.defaultcompany)
+      this.cookieService.set('selectedCompany', response.defaultcompany)
       this.loginService.authState.next(true);
     }
     catch(err){

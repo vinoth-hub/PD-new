@@ -2,7 +2,7 @@
 	User Permission and Settings
 </div>
 <div class="menuSect">
-	<div Class="menuLast">
+	<div Class="menuLast" (click)="beginCreateUser(createUser)">
 		<div class="menuRightDiv" >
 			<img src="assets/images/addIcon.png" class="addIconClass addUserPop">
 		</div>
@@ -10,7 +10,7 @@
 			Copy User
 		</div>
 	</div>
-	<div Class="menuSecond">
+	<div Class="menuSecond" (click)="beginCreateUser(createUser)">
 		<div class="menuRightDiv" >
 			<img src="assets/images/addIcon.png" class="addIconClass addUserPop">
 		</div>
@@ -35,7 +35,7 @@
 		<li><a href="category.html">Categories</a></li>
 		<li><a href="users.html">Users</a></li>
 		<li><a href="#" class="addUserPop">Copy User</a></li>
-		<li><a href="#" class="addUserPop">Add User</a></li>
+		<li><a href="#" class="addUserPop" (click)="beginCreateUser(createUser)">Add User</a></li>
 	</ul>
 </div>
 <!--/***** Body menu section End here *************/--> 
@@ -58,7 +58,7 @@
 					<td valign="top">{{users[i].title}}</td>
 					<td valign="top">
 						<div class="criteraDivImg">
-							<img src="assets/images/add.png" title="Add" width="32" class="addImg"/>
+							<img src="assets/images/add.png" title="Add" width="32" class="addImg" (click)="openModal(editUser, users[i])"/>
 						</div>
 						<ng-template [ngIf]="users[i].categoryListSummary">
 							<div class="criteriaDiv" *ngFor="let item of users[i].categoryListSummary"><span>{{item}}</span></div>
@@ -70,7 +70,7 @@
 					</td>
 					<td valign="top">
 						<div class="criteraDivImg">
-							<img src="assets/images/add.png" title="Add" width="32" class="addImg"/>
+							<img src="assets/images/add.png" title="Add" width="32" class="addImg" (click)="openModal(editUser, users[i])"/>
 						</div>
 						<ng-template [ngIf]="users[i].levelListSummary">
 							<div class="criteriaDiv" *ngFor="let item of users[i].levelListSummary"><span>{{item}}</span></div>
@@ -88,10 +88,10 @@
 							<a href="javascript:void(0);" class="deactivateClass"  (click)="deactivateUser(users[i].userID)">Deactivate</a>
 						</div>
 						<div class="actionLeft">
-							<a href="javascript:void(0);" class="resetPassword" (click)="resetPassword(users[i].userID, users[i].title)">Reset Password</a>
+							<a href="javascript:void(0);" class="resetPassword" (click)="resetPassword(users[i].userID, users[i].title, users[i].username)">Reset Password</a>
 						</div>
 						<div class="actionRight">
-							<a href="javascript:void(0);" class="EditCriteriaClass1 addImg">Edit</a>
+							<a href="javascript:void(0);" class="EditCriteriaClass1 addImg" (click)="openModal(editUser, users[i])">Edit</a>
 						</div>
 					</td>
 				</tr>
@@ -116,3 +116,122 @@
     </div>
 </div>
 <!--/***** Body Table Data section End here *************/-->
+<ng-template #editUser>
+	<div id="dialog" class="modal-content">
+		<div class="addCategoryPopupBox1 modal-body">
+			<form method="post" action="#">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td class="formText">User Name</td>
+						<td class="formText">Full Name</td>
+					</tr>
+					<tr>
+						<td><input type="text" [(ngModel)]="userForm.user.username" class="textTypeClassLeft" [ngModelOptions]="{standalone: true}"/></td>
+						<td><input type="text" [(ngModel)]="userForm.user.fullName" class="textTypeClassRight" [ngModelOptions]="{standalone: true}"/></td>
+					</tr>
+					<tr>
+						<td class="formText">Email Address</td>
+						<td class="formText">IP</td>
+					</tr>
+					<tr>
+						<td><input type="text" [(ngModel)]="userForm.user.title" class="textTypeClassLeft" [ngModelOptions]="{standalone: true}"/></td>
+						<td><input type="text" [(ngModel)]="userForm.user.ip" class="textTypeClassRight" [ngModelOptions]="{standalone: true}"/></td>
+					</tr>
+					<tr>
+						<td class="formText">Categories</td>
+						<td class="formText">Access Pages</td>
+					</tr>
+					<tr>
+						<td>
+							<ng-select [multiple]="true" name="categories"
+                      			[items]="userForm.categoryOptions" 
+                      			[(ngModel)]="userForm.user.categoryList">
+								<ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+									<input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" name="item-{{index}}"/> {{item}}
+								</ng-template>
+                    		</ng-select>
+						<td>
+							<ng-select [multiple]="true" name="accessPages"
+                      			[items]="userForm.accessPageOptions" 
+                      			[(ngModel)]="userForm.user.levelList">
+								  <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+									<input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" name="item-{{index}}"/> {{item}}
+								</ng-template>
+                    		</ng-select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" value="Update" class="formButtonClass" (click)="submitForm()" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</ng-template>
+<ng-template #createUser>
+	<div id="dialogCategory" class="modal-content">
+		<div class="modal-header">
+			<p class="popupHeadingCompany1">Add A User (<label class="star">*</label>denotes mandatory fields):</p>
+		</div>
+		<div class="addCategoryPopupBox1 modal-body">
+			<form method="post" action="#">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+				<td class="formText">User Name</td>
+				<td class="formText">Full Name</td>
+			  </tr>
+			  <tr>
+				<td><input type="text" [(ngModel)]="userForm.user.username" class="textTypeClassLeft" [ngModelOptions]="{standalone: true}"/></td>
+				<td><input type="text" [(ngModel)]="userForm.user.fullName" class="textTypeClassRight" [ngModelOptions]="{standalone: true}"/></td>
+			  </tr>
+			  <tr>
+				<td class="formText">Email Address</td>
+				<td class="formText">IP</td>
+			  </tr>
+			  <tr>
+				<td><input type="text" [(ngModel)]="userForm.user.title" class="textTypeClassLeft" [ngModelOptions]="{standalone: true}"/></td>
+				<td><input type="text" [(ngModel)]="userForm.user.ip" class="textTypeClassRight" [ngModelOptions]="{standalone: true}"/></td>
+			  </tr>
+			  <tr>
+				<td class="formText">Categories</td>
+				<td class="formText">Access Pages</td>
+			  </tr>
+			  <tr>
+				<td>
+					<ng-select [multiple]="true" name="categories"
+					[items]="userForm.categoryOptions" 
+					[(ngModel)]="userForm.user.categoryList">
+					<ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+					  <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" name="item-{{index}}"/> {{item}}
+				  </ng-template>
+			  </ng-select>
+				<td>
+					<ng-select [multiple]="true" name="accessPages"
+                      		[items]="userForm.accessPageOptions" 
+                      		[(ngModel)]="userForm.user.levelList">
+							<ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+								<input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" name="item-{{index}}"/> {{item}}
+							</ng-template>
+                    </ng-select>
+			  </tr>
+			  <tr>
+				<td class="middleTableText" colspan="2">OR</td>
+			  </tr>
+			  <tr>
+				<td class="formText" colspan="2">Copy Settings From User</td>
+			  </tr>
+			  <tr>
+				<td colspan="2">
+					<select class="textTypeClassRight" id="category" name="category" [(ngModel)]="userForm.copyUserId" (change)="loadTransSecurity()">
+						<option [value]="item.userID" *ngFor="let item of userForm.userSummaryList">{{item.username}} - {{item.fullName}}</option>
+					</select>
+			  </tr>
+			  <tr>
+				<td colspan="2"><input type="submit" value="Add User" class="formButtonClass" (click)="submitForm()"/></td>
+			  </tr>
+			</table>
+			
+			</form>
+		</div>
+	</div>
+</ng-template>

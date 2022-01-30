@@ -1,10 +1,14 @@
 const nodemailer = require('nodemailer');
-module.exports = {
+const config = require('../shared/config');
+const mariadb = require('mariadb');
+const pool = mariadb.createPool(config.db);
+
+let helpers = {
     prepareDateForMaria: (date) => date.toISOString().replace('T', ' ').replace('Z', ''),
     sendMailAsync: (mailData) => {
         return new Promise((resolve, reject) => {
-            if(!mailData.mail.to.includes('adriyaman'))
-                throw new Error('Not now!!')
+            /*if(!mailData.mail.to.includes('adriyaman'))
+                throw new Error('Not now!!')*/
             var transporter = nodemailer.createTransport(mailData.config);
             var mailOptions = {
                 from: mailData.config.auth.user,
@@ -38,5 +42,28 @@ module.exports = {
                 }
             })
         })
+    },
+    handleError: (res, err) => {
+        if(config.isProd)
+            res.sendStatus(500);
+        else{
+            res.status(500);
+            res.send(err);
+        }
+    },
+    updateLastActivity: async (req, res, next) => {
+        let conn;
+        try{
+            conn = await pool.getConnection();
+            conn.query(`UPDATE ${req.decodedJwt.db}.user SET lastactivity = '${helpers.prepareDateForMaria(new Date())}' WHERE userID = ${req.decodedJwt.userId}`); //high overhead, so non blocking call
+            next();
+        }
+        catch(err){
+            helpers.handleError(res, err);
+        }
+        finally{
+            if (conn) return conn.end();
+        }
     }
 }
+module.exports = helpers;

@@ -5,3 +5,7 @@ ALTER TABLE master.tenant CHANGE companiesID tenantID int(10) unsigned auto_incr
 RENAME TABLE master.companyfolders TO master.tenantFolders;
 ALTER TABLE master.tenantfolders CHANGE companyfoldersID tenantFoldersID int(10) unsigned auto_increment NOT NULL;
 ALTER TABLE master.tenantfolders CHANGE companyID tenantID int(10) unsigned NOT NULL;
+
+ALTER TABLE demo36.`user` ADD `fullname` varchar(100) NULL;
+
+ALTER TABLE demo36.`user` ADD lastactivity DATETIME NULL;
