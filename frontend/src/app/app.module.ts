@@ -12,12 +12,14 @@ import { LoginService } from './login/login.service';
 import { UserComponent } from './user/user/user.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { CompanyComponent } from './company/company.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    UserComponent
+    UserComponent,
+    CompanyComponent
   ],
   imports: [
     BrowserModule,

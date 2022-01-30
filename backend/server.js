@@ -5,6 +5,7 @@ var user = require('./service/user');
 var common = require('./service/common');
 var mailer = require('./service/mailer');
 var helpers = require('./shared/helpers');
+const company = require('./service/company');
 var app = express();
 var port = process.env.PORT || 42069;
 app.use(express.json())
@@ -26,7 +27,7 @@ app.get('/companies', auth.decodeJwt, auth.checkLastActivity, helpers.updateLast
 app.get('/user/all-access-pages', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.getAllAccessPages);
 app.get('/user/all-categories', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.getAllCategories);
 app.get('/user', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.userList);
-app.get('/user/summary', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.userSummaryList);
+app.get('/user/summary', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.getSummary);
 app.get('/user/:userId/ts-details', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.getTsDetails);
 app.delete('/user/:userId', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.deleteUser);
 app.put('/user/:userId/deactivate', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.deactivateUser);
@@ -36,6 +37,11 @@ app.put('/user', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActiv
 app.post('/user', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, auth.generatePassword, user.createUser, mailer.newAccount, (req, res) => {
     res.sendStatus(201)
 });
+
+app.get('/company/get-timezones', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.getTimezoneList)
+app.get('/company', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.getList)
+app.get('/company/summary', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.getSummary)
+app.get('/company/:companyId', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.details)
 
 app.listen(port, ()=>{
     console.log('Ready on ',port)

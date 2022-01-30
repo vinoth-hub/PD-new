@@ -56,7 +56,7 @@ module.exports = {
                 conn.end();
         }
     },
-    userSummaryList: async (req, res) => { // Lazy load for above, not this because this has data from only one table
+    getSummary: async (req, res) => { // Lazy load for above, not this because this has data from only one table
         let conn;
         try{
             conn = await pool.getConnection();

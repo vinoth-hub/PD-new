@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { lastValueFrom } from 'rxjs';
 import { AppService } from './app.service';
@@ -24,7 +24,8 @@ export class AppComponent {
         this.router.navigate(['/login']);
       else{
         await this.initCompanyDropdown();
-        this.router.navigate(['/user'])
+        if(!location.pathname || location.pathname === '/' || location.pathname === '/login') // ActivatedRoute is not available here, so use window.location
+          this.router.navigate(['/user'])
       }
       this.authState = state;
     })

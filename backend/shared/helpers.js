@@ -64,6 +64,29 @@ let helpers = {
         finally{
             if (conn) return conn.end();
         }
+    },
+    checkAuthorization: async (req, res, next, fn, ignoreCompanyFilter) => {
+        let conn;
+        try{
+            conn = await pool.getConnection();
+            var query = `select count(1) from ${req.decodedJwt.db}.transsecurity t 
+            inner join ${req.decodedJwt.db}.\`security\` s on t.securityID = s.securityID and t.companyID = s.companyID 
+            where t.userID  = ${req.decodedJwt.userId} and \`level\` = '${fn}'`
+            if(!ignoreCompanyFilter)
+                query += ` and t.companyID = ${req.query.selectedCompany}`
+            var rows = await conn.query(query)
+            if(!rows || !rows[0] || !rows[0]["count(1)"]){
+                res.sendStatus(403);
+                return;
+            }
+            next();
+        }
+        catch(err){
+            helpers.handleError(res, err);
+        }
+        finally{
+            if (conn) return conn.end();
+        }
     }
 }
 module.exports = helpers;

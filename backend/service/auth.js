@@ -76,24 +76,10 @@ module.exports = {
     },
     authorize:{
         users: async (req, res, next) => {
-            let conn;
-            try{
-                conn = await pool.getConnection();
-                var rows = await conn.query(`select count(1) from ${req.decodedJwt.db}.transsecurity t 
-                inner join ${req.decodedJwt.db}.\`security\` s on t.securityID = s.securityID and t.companyID = s.companyID 
-                where t.userID  = ${req.decodedJwt.userId} and t.companyID = ${req.query.selectedCompany} and \`level\` = 'Edit Users'`)
-                if(!rows || !rows[0] || !rows[0]["count(1)"]){
-                    res.sendStatus(403);
-                    return;
-                }
-                next();
-            }
-            catch(err){
-                helpers.handleError(res, err);
-            }
-            finally{
-                if (conn) return conn.end();
-            }
+            await helpers.checkAuthorization(req, res, next, 'Edit Users');
+        },
+        companies: async(req, res, next) => {
+            await helpers.checkAuthorization(req, res, next, 'Edit Company', true);
         }
     },
     generatePassword: async(req, res, next) => {

@@ -24,7 +24,6 @@ export class UserComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     try{
-      console.log(44)
       await Promise.all([
         this.getAllCategories(),
         this.getAllAccessPages(),
