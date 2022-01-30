@@ -93,6 +93,7 @@
 							<div class="dropdown-menu">
 							  <a class="dropdown-item" href="javascript:void(0);" (click)="deactivateUser(users[i].userID)">Deactivate</a>
 							  <a class="dropdown-item" href="javascript:void(0);" (click)="resetPassword(users[i].userID, users[i].title, users[i].username)">Reset Password</a>
+							  <a class="dropdown-item" href="javascript:void(0);" (click)="forceLogout(users[i].userID)">Force Logout</a>
 							  <div class="dropdown-divider"></div>
 							  <a class="dropdown-item bg-danger" href="javascript:void(0);" (click)="deleteUser(users[i].userID)">Delete</a>
 							</div>
