@@ -13,11 +13,12 @@ module.exports = {
         }
     },
     db: {
-        host: 'localhost', 
-        user:'root', 
-        password: 'm249saw0',
+        host: 'imanage.host',
+        user: 'pdis',
+        password: 'PDIS123!',
         connectionLimit: 5,
-        port:3306,
+        port: 3306,
+        allowPublicKeyRetrieval: true
     },
     jwtEncodingSecret: 'apfsds',
     isProd: false, // For debugging! Make true in prod for security!

@@ -1,4 +1,7 @@
 export class Company{
-    companyID: string = '';
+    companyID: number = -1;
     name: string = '';
+    dst: boolean = false;
+    ip: string = '';
+    timezone: string = '';
 }

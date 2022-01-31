@@ -4,21 +4,6 @@ const helpers = require('../shared/helpers');
 const pool = mariadb.createPool(config.db);
 
 module.exports = {
-    getAccessList: async (req, res) => {
-        let conn;
-        try{
-            conn = await pool.getConnection();
-            let rows = await conn.query("SELECT * FROM master.access");
-            res.send(rows);
-        }
-        catch(err){
-            helpers.handleError(res, err);
-        }
-        finally{
-            if(conn)
-                conn.end();
-        }
-    },
     userList: async(req, res) => { // Lazy load by page number
         let conn;
         try{

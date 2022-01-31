@@ -32,7 +32,6 @@ export class UserComponent implements OnInit {
       this.loginService.accessDenied.next(false)
     }
     catch(err){
-      console.log(441)
       if(err instanceof HttpErrorResponse){
         if(err.status === 403)
           this.loginService.accessDenied.next(true);

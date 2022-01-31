@@ -8,7 +8,7 @@
 			<div class="menuRightDiv" >
 				<img src="assets/images/addIcon.png" class="addIconClass addCategryPop">
 			</div>
-			<div class="menuDivText addCategryPop">
+			<div class="menuDivText addCategryPop" (click)="beginAddCompany(addCompany)">
 				Copy Company
 			</div>
 		</div>
@@ -16,7 +16,7 @@
 			<div class="menuRightDiv" >
 				<img src="assets/images/addIcon.png" class="addIconClass addCategryPop">
 			</div>
-			<div class="menuDivText addCategryPop">
+			<div class="menuDivText addCategryPop" (click)="beginAddCompany(addCompany)">
 				Add Company
 			</div>
 		</div>
@@ -54,149 +54,103 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td valign="top">Company 1</td>
-					<td valign="top">
-						<select class="timezoneDropdown">
-							<option value="America">America</option>
-							<option value="London">London</option>
-							<option value="City 1">City 1</option>
-							<option value="City 2">City 2</option>
-						</select>
-					</td>
-					<td valign="top">
-						<div class="criteraDivImg">
-							<img src="assets/images/add.png" title="Add" width="32" class="addImg"/>
-						</div>
-						<div class="IPDiv"><span>192.168.1.1</span> </div>
-						<div class="queryImg">
-							<img src="assets/images/query.png" title="query" width="32"/>
-						</div>
-					</td>
-					<td valign="top">
-						<div class="savingTimeLeft">
-							<img src="assets/images/tick.png" width="22" class="savingTimeImg"/>
-						</div>
-						<div class="savingTimeRight">
-							<img src="assets/images/cancel.png" width="20" class="savingTimeImg"/>
-						</div>
-					</td>
-					<td valign="top">
-						<a href="#" class="deleteClass">Delete</a>
-						<br/>
-						<a href="#" class="EditCriteriaClass addImg">Edit</a>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="5"  class="transparentTR"></td>
-				</tr>
-				<tr>
-					<td valign="top">Company 2</td>
-					<td valign="top">
-						<select class="timezoneDropdown">
-							<option value="America">America</option>
-							<option value="London">London</option>
-							<option value="City 1">City 1</option>
-							<option value="City 2">City 2</option>
-						</select>
-					</td>
-					<td valign="top">
-						<div class="criteraDivImg">
-							<img src="assets/images/add.png" title="Add" width="32" class="addImg"/>
-						</div>
-						<div class="IPDiv"><span>192.168.1.1</span> </div>
-						<div class="queryImg">
-							<img src="assets/images/query.png" title="query" width="32"/>
-						</div>
-					</td>
-					<td valign="top">
-						<div class="savingTimeLeft">
-							<img src="assets/images/tick.png" width="22" class="savingTimeImg"/>
-						</div>
-						<div class="savingTimeRight">
-							<img src="assets/images/cancel.png" width="20" class="savingTimeImg"/>
-						</div>
-					</td>
-					<td valign="top">
-						<a href="#" class="deleteClass">Delete</a>
-						<br/>
-						<a href="#" class="EditCriteriaClass addImg">Edit</a>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="5"  class="transparentTR"></td>
-				</tr>
-				<tr>
-					<td valign="top">Company 3</td>
-					<td valign="top">
-						<select class="timezoneDropdown">
-							<option value="America">America</option>
-							<option value="London">London</option>
-							<option value="City 1">City 1</option>
-							<option value="City 2">City 2</option>
-						</select>
-					</td>
-					<td valign="top">
-						<div class="criteraDivImg">
-							<img src="assets/images/add.png" title="Add" width="32" class="addImg"/>
-						</div>
-						<div class="IPDiv"><span>192.168.1.1</span> </div>
-						<div class="queryImg">
-							<img src="assets/images/query.png" title="query" width="32"/>
-						</div>
-					</td>
-					<td valign="top">
-						<div class="savingTimeLeft">
-							<img src="assets/images/tick.png" width="22" class="savingTimeImg"/>
-						</div>
-						<div class="savingTimeRight">
-							<img src="assets/images/cancel.png" width="20" class="savingTimeImg"/>
-						</div>
-					</td>
-					<td valign="top">
-						<a href="#" class="deleteClass">Delete</a>
-						<br/>
-						<a href="#" class="EditCriteriaClass addImg">Edit</a>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="5"  class="transparentTR"></td>
-				</tr>
-				<tr>
-					<td valign="top">Company 4</td>
-					<td valign="top">
-						<select class="timezoneDropdown">
-							<option value="America">America</option>
-							<option value="London">London</option>
-							<option value="City 1">City 1</option>
-							<option value="City 2">City 2</option>
-						</select>
-					</td>
-					<td valign="top">
-						<div class="criteraDivImg">
-							<img src="assets/images/add.png" title="Add" width="32" class="addImg"/>
-						</div>
-						<div class="IPDiv"><span>192.168.1.1</span> </div>
-						<div class="queryImg">
-							<img src="assets/images/query.png" title="query" width="32"/>
-						</div>
-					</td>
-					<td valign="top">
-						<div class="savingTimeLeft">
-							<img src="assets/images/tick.png" width="22" class="savingTimeImg"/>
-						</div>
-						<div class="savingTimeRight">
-							<img src="assets/images/cancel.png" width="20" class="savingTimeImg"/>
-						</div>
-					</td>
-					<td valign="top">
-						<a href="#" class="deleteClass">Delete</a>
-						<br/>
-						<a href="#" class="EditCriteriaClass addImg">Edit</a>
-					</td>
-				</tr>
+				<ng-template ngFor let-item [ngForOf]="companies" let-i="index">
+					<tr>
+						<td valign="top">{{companies[i].name}}</td>
+						<td valign="top">
+							<select class="timezoneDropdown" [(ngModel)]="companies[i].timezone" (change)="setTimezone(companies[i].companyID, companies[i].timezone)">
+								<option [value]="timezone.fullname" *ngFor="let timezone of allTimezones">{{timezone.fullname}}</option>
+							</select>
+						</td>
+						<td valign="top">
+							<div class="criteraDivImg">
+								<img src="assets/images/add.png" title="Add" width="32" class="addImg"/>
+							</div>
+							<div class="IPDiv"><span>{{companies[i].ip ? companies[i].ip : 'Not set'}}</span> </div>
+							<div class="queryImg">
+								<img src="assets/images/query.png" title="query" width="32"/>
+							</div>
+						</td>
+						<td valign="top">
+							<label class="switch toggle">
+								<input type="checkbox" [(ngModel)]="companies[i].dst" (click)="setDst(companies[i].companyID, companies[i].dst)">
+								<span class="slider round"></span>
+						  </label>
+						</td>
+						<td valign="top">
+							<a href="javascript:void(0);" class="deleteClass" (click)="delete(companies[i].companyID)">Delete</a>
+							<br/>
+							<a href="javascript:void(0);" class="EditCriteriaClass addImg" (click)="openModal(editCompany, companies[i])">Edit</a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5"  class="transparentTR"></td>
+					</tr>
+				</ng-template>
 			</tbody>
 		</table>
+		<div class="paginateContainer">
+			<ul class="paginateList">
+				<li class="paginatePrevious {{pagination.getPreviousDisabled() ? 'paginateDisabled' : ''}}" (click)="paginatePrevious()">
+					<a class="paginateAnchor">&lt;</a>
+				</li>
+				<li class="paginatePage {{pagination.getActiveIndex() === i ? 'paginateActive' : ''}}" *ngFor="let page of pagination.getPages(); index as i;" (click)="paginateTo(page)">
+					<a class="paginateAnchor">{{page}}</a>
+				</li>
+				<li class="paginateNext {{pagination.getNextDisabled() ? 'paginateDisabled' : ''}}" (click)="paginateNext()">
+					<a class="paginateAnchor">&gt;</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 	<!--/***** Body Table Data section End here *************/-->
 </div>
+<ng-template #editCompany>
+	<div id="dialog">
+		<div class="addCategoryPopupBox">
+			<form method="post" action="#">
+				<p class="formTextNew">
+					<label class="star">*</label>Company Name
+				</p>
+				<input type="text" [(ngModel)]="companyForm.company.name" [ngModelOptions]="{standalone: true}" class="formDropdown"/>
+				<p class="formText">Time Zone</p>
+				<select class="formDropdown" id="timeZone" name="timeZone" [(ngModel)]="companyForm.company.timezone" [ngModelOptions]="{standalone: true}">
+					<option [value]="timezone.fullname" *ngFor="let timezone of allTimezones">{{timezone.fullname}}</option>
+				</select>
+				<p class="formText">IP Subnet</p>
+				<input type="text" [(ngModel)]="companyForm.company.ip" [ngModelOptions]="{standalone: true}" class="formDropdown"/>
+				<p class="formText">Observe DayNight Saving Time?</p>
+				<input type="checkbox" [(ngModel)]="companyForm.company.dst" [ngModelOptions]="{standalone: true}" class="savingTimeLeft"/>
+				<input type="submit" value="Update" class="formButtonClass" (click)="submitForm()"/>
+			</form>
+		</div>
+	</div>
+</ng-template>
+<ng-template #addCompany>
+	<!--/**************Add Company Popup Start ************/-->
+<div id="dialogCategory">
+	<div class="addCategoryPopupBox">
+		<p class="popupHeadingCompany">Add A Company (<label class="star">*</label>denotes mendatory fields):</p>
+		<form method="post" action="#">
+			<p class="formTextNew"><label class="star">*</label>Copy From Company</p>
+			<select class="formDropdown" [(ngModel)]="companyForm.copyFromCompanyId" [ngModelOptions]="{standalone: true}">
+				<option [value]="0">-- Select --</option>
+				<option [value]="company.companyID" *ngFor="let company of companyForm.companyList">{{company.name}}</option>
+			</select>
+			<p class="formText">Company Name</p>
+			<input type="text" [(ngModel)]="companyForm.company.name" [ngModelOptions]="{standalone: true}" class="formDropdown"/>
+			<ng-template [ngIf]="companyForm.copyFromCompanyId == 0">
+				<p class="formText">IP Subnet</p>
+				<input type="text" [(ngModel)]="companyForm.company.ip" [ngModelOptions]="{standalone: true}" class="formDropdown"/>
+				<p class="formText">Time Zone</p>
+				<select class="formDropdown" id="timeZone" name="timeZone" [(ngModel)]="companyForm.company.timezone" [ngModelOptions]="{standalone: true}">
+					<option [value]="timezone.fullname" *ngFor="let timezone of allTimezones">{{timezone.fullname}}</option>
+				</select>
+			</ng-template>
+			<input type="submit" value="Add Company" class="formButtonClass" (click)="submitForm()"/>
+		</form>
+	</div>
+</div>
+</ng-template>
+
+

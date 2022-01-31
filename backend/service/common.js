@@ -7,7 +7,7 @@ module.exports = {
         let conn;
         try{
             conn = await pool.getConnection();
-            let rows = await conn.query(`SELECT companyID, name FROM ${req.decodedJwt.db}.company`);
+            let rows = await conn.query(`SELECT companyID, name FROM ${req.decodedJwt.db}.company WHERE isdeleted = 0`);
             res.send(rows);
         }
         catch(err){

@@ -38,10 +38,15 @@ app.post('/user', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActi
     res.sendStatus(201)
 });
 
-app.get('/company/get-timezones', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.getTimezoneList)
 app.get('/company', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.getList)
 app.get('/company/summary', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.getSummary)
 app.get('/company/:companyId', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.details)
+app.delete('/company/:companyId', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.delete)
+app.get('/company/timezones/all', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.getTimezoneList)
+app.put('/company/timezone', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.setTimezone)
+app.put('/company/dst', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.setDst)
+app.put('/company', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.edit)
+app.post('/company', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.create)
 
 app.listen(port, ()=>{
     console.log('Ready on ',port)
