@@ -113,6 +113,8 @@ export class UserComponent implements OnInit {
         await lastValueFrom(this.userService.createUser(this.userForm.user));
         this.toastr.success('User created');
       }
+      await this.refreshUsers(1);
+      this.modalRef.hide()
     }
     catch(err){
       this.toastr.error('Something went wrong');

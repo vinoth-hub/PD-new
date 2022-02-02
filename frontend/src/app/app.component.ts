@@ -32,6 +32,9 @@ export class AppComponent {
     this.loginService.accessDenied.subscribe((deny) => {
       this.accessDenied = deny;
     })
+    this.appService.companiesUpdated.subscribe((updatedCompanies) => {
+      this.companies = updatedCompanies;
+    })
   }
   async ngOnInit(): Promise<void> {
     this.jwt = this.cookieService.get('jwt')

@@ -121,6 +121,7 @@ export class CompanyComponent implements OnInit {
         }));
         this.toastr.success('Company added');
       }
+      this.modalRef.hide()
       await this.reloadCompanies();
     }
     catch(err){

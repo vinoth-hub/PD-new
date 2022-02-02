@@ -36,20 +36,6 @@ module.exports = {
             if (conn) return conn.end();
         }
     }, 
-    getSummary: async (req, res) => {
-        let conn;
-        try{
-            conn = await pool.getConnection();
-            var rows = await conn.query(`SELECT companyID, name FROM ${req.decodedJwt.db}.company WHERE isdeleted = 0 ORDER BY name `);
-            res.send(rows);
-        }
-        catch(err){
-            helpers.handleError(res, err);
-        }
-        finally{
-            if (conn) return conn.end();
-        }
-    },
     details: async(req, res) => {
         let conn;
         try{

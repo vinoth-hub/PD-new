@@ -16,12 +16,6 @@ export class CompanyService {
   getCompanyList(pageNumber:number):Observable<any>{
     return this.httpClient.get(`${this.baseUrl}?pageNumber=${pageNumber}`);
   }
-  getCompanySummaryList():Observable<any>{
-    return this.httpClient.get(this.baseUrl + 'summary');
-  }
-  getCompanyDetails(companyId: number):Observable<any>{
-    return this.httpClient.get(`${this.baseUrl}summary/${companyId}`);
-  }
   setTimezone(companyId: number, timezone: string):Observable<any>{
     return this.httpClient.put(`${this.baseUrl}timezone`, {companyId, timezone});
   }

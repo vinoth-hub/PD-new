@@ -1,0 +1,156 @@
+<!--/***** Body menu section start here *************/-->
+<div Class="innerHeading">
+	Categories
+</div>
+<div class="menuSect">
+	<div Class="menuLast">
+		<div class="menuRightDiv" >
+			<img src="assets/images/addIcon.png" class="addIconClass addCategryPop">
+		</div>
+		<div class="menuDivText addCategryPop" (click)="beginAdd(modalForm)">
+			Copy Categories
+		</div>
+	</div>
+	<div Class="menuSecond"(click)="beginAdd(modalForm)">
+		<div class="menuRightDiv">
+			<img src="assets/images/addIcon.png" class="addIconClass addCategryPop">
+		</div>
+		<div class="menuDivText addCategryPop">
+			Add Categories
+		</div>
+	</div>
+	<div Class="menuFirst">
+		<ul>
+			<li><a [routerLink]="['/company']">Companies</a></li>
+			<li><a [routerLink]="['/category']">Categories</a></li>
+			<li><a [routerLink]="['/user']">Users</a></li>
+		</ul>
+	</div>
+</div>
+<div class="menuSect1">
+	<img src="assets/images/leftIcon.png" class="leftMenuPanel1"/>
+</div>
+<div class="smallMenu">
+	<ul class="dropdown-menu dropdown-menu-end" style="display:block; width:100%;" id="rightMenu">
+		<li><a href="companies.html">Companies</a></li>
+		<li><a href="category.html">Categories</a></li>
+		<li><a href="users.html">Users</a></li>
+		<li><a href="javascript:void(0);"  class="addCategryPop">Add Categories</a></li>
+		<li><a href="javascript:void(0);"  class="addCategryPop">Copy Categories</a></li>
+	</ul>
+</div>
+<!--/***** Body menu section End here *************/--> 
+<!--/***** Body Table Data section start here *************/-->
+<div  class="tableWrapper">
+	<table class="tableClass" width="0" cellpadding="0" cellspacing="0" id="tableData">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Category Name</th>
+				<th width="20%">Criteria</th>
+				<th>Keep Files For</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+            <ng-template ngFor let-item [ngForOf]="categories" let-i="index">
+			    <tr>
+					<td valign="top">{{categories[i].categoryID}}</td>
+				    <td valign="top">{{categories[i].name}}</td>
+				    <td valign="top">
+					    <div class="criteraDivImg" (click)="beginAddCriteria(editCriteria, categories[i])">
+						    <img src="assets/images/add.png" title="Add" width="32" class="addImg"/>
+					    </div>
+                        <ng-template [ngIf]="categories[i].criteriaListSummary">
+							<div class="criteriaDiv" *ngFor="let item of categories[i].criteriaListSummary"><span>{{item}}</span></div>
+							<div class="criteriaDiv"><span>+{{categories[i].criteriaList.length - 3}} more</span></div>
+						</ng-template>
+						<ng-template [ngIf]="!categories[i].criteriaListSummary">
+							<div class="criteriaDiv" *ngFor="let item of categories[i].criteriaList"><span>{{item}}</span></div>
+						</ng-template>
+				    </td>
+				    <td valign="top">
+					    <select class="filesDropdown" [(ngModel)]="categories[i].expiration" (change)="updateExpiration(categories[i])">
+    						<option [value]="item" *ngFor="let item of categoryForm.expirationOptions">{{item}} Years</option>
+				    	</select>
+				    </td>
+    				<td valign="top">
+	    				<a href="javascript:void(0);" class="deleteClass" (click)="deleteById(categories[i].categoryID)">Delete</a>
+		    			<br/>
+			    		<a href="#" class="EditCriteriaClass addImg">Edit Criteria</a>
+				    	<br/>
+					    <a href="javascript:void(0);" class="editCategoryClass addCategryPop" (click)="openModal(modalForm, categories[i])">Edit Categories</a>
+				    </td>
+			    </tr>
+			    <tr>
+				    <td colspan="5"  class="transparentTR"></td>
+			    </tr>
+            </ng-template>
+		</tbody>
+	</table>
+    <div class="paginateContainer">
+        <ul class="paginateList">
+            <li class="paginatePrevious {{pagination.getPreviousDisabled() ? 'paginateDisabled' : ''}}" (click)="paginatePrevious()">
+                <a class="paginateAnchor">&lt;</a>
+            </li>
+            <li class="paginatePage {{pagination.getActiveIndex() === i ? 'paginateActive' : ''}}" *ngFor="let page of pagination.getPages(); index as i;" (click)="paginateTo(page)">
+                <a class="paginateAnchor">{{page}}</a>
+            </li>
+            <li class="paginateNext {{pagination.getNextDisabled() ? 'paginateDisabled' : ''}}" (click)="paginateNext()">
+                <a class="paginateAnchor">&gt;</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--/***** Body Table Data section End here *************/-->
+<ng-template #editCriteria>
+    <div id="dialog">
+        <form method="post" action="category.html">
+            <p class="popupHeading">Edit Criteria For {{categoryForm.category.name}}</p>
+            <div class="popupTotalBlock">
+                <div class="criteriaDiv" *ngFor="let item of criteriaForm.category.criteriaList">
+                    <span (click)="removeCriteriaFromForm(item)">{{item}}</span>
+                </div>
+            </div>
+            <div class="popupTotalBlock criteria-list-container">
+                <input type="text" autocomplete="on" list="criteriaOptionList" class="form-control"
+					[(ngModel)]="criteriaForm.newCriteria" [ngModelOptions]="{standalone: true}">
+				<datalist id="criteriaOptionList" *ngIf="criteriaForm.criteriaOptions.length > 0">
+					<select size=5>
+						<option *ngFor="let item of criteriaForm.criteriaOptions;" [value]="item"> 
+                            {{item}}
+						</option>
+					</select>
+				</datalist>
+            </div>
+            <div class="popupTotalBlock" (click)="addCriteriaToForm()">
+                <img src="assets/images/popupAdd.png" width="60"/>
+            </div>
+            <div class="popupSubmitBlck" (click)="submitCriteria()">
+                <input type="submit" value="Update" class="updateButtonClass"/>
+            </div>
+        </form>
+    </div>
+</ng-template>
+<!--/**************Criteria Popup End ************/-->
+<!--/**************Add Category Popup Start ************/-->
+<ng-template #modalForm>
+	<div id="dialogCategory">
+		<div class="addCategoryPopupBox">
+			<form method="post" action="category.html">
+				<p class="formTextNew"><label class="star">*</label>Category Name</p>
+				<input type="text" class="formDropdown" [(ngModel)]="categoryForm.category.name" [ngModelOptions]="{standalone: true}" />
+				<p class="formText">Keep Files For <label class="star">*</label></p>
+				<select class="formDropdown" [(ngModel)]="categoryForm.category.expiration" [ngModelOptions]="{standalone: true}">
+					<option [value]="item" *ngFor="let item of categoryForm.expirationOptions">{{item}} Years</option>
+				</select>
+				<p class="formText">Copy Criteria From </p>
+				<select class="formDropdown" [(ngModel)]="categoryForm.sourceCategoryID" [ngModelOptions]="{standalone: true}">
+					<option value="0">-- Select --</option>
+					<option [value]="item.categoryID" *ngFor="let item of categoryForm.sourceCategoryOptions">{{item.name}}</option>
+				</select>
+				<input type="submit" value="Update" class="formButtonClass" (click)="submitForm()"/>
+			</form>
+		</div>
+	</div>
+</ng-template>

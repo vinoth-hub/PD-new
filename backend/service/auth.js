@@ -80,7 +80,10 @@ module.exports = {
         },
         companies: async(req, res, next) => {
             await helpers.checkAuthorization(req, res, next, 'Edit Company', true);
-        }
+        },
+        category: async(req, res, next) => {
+            await helpers.checkAuthorization(req, res, next, 'Edit Categories', true);
+        },
     },
     generatePassword: async(req, res, next) => {
         try{
