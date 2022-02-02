@@ -72,3 +72,12 @@ body{
     -ms-transform: translateX(19px);
     transform: translateX(19px);
   }
+  .modal-content{
+    background: #FFFFFF!important;
+    box-shadow: 0px 0px 40px 5px rgba(0, 0, 0, 0.15)!important;
+    border-radius: 32px!important;
+    border: none!important;
+  }
+  a{
+    text-decoration: none;
+  }

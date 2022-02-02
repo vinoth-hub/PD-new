@@ -109,7 +109,7 @@
             <p class="popupHeading">Edit Criteria For {{categoryForm.category.name}}</p>
             <div class="popupTotalBlock">
                 <div class="criteriaDiv" *ngFor="let item of criteriaForm.category.criteriaList">
-                    <span (click)="removeCriteriaFromForm(item)">{{item}}</span>
+                    <span (click)="removeCriteriaFromForm(item)">{{item}} <i class="fas fa-times"></i> </span>
                 </div>
             </div>
             <div class="popupTotalBlock criteria-list-container">
