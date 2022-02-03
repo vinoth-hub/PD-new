@@ -1028,7 +1028,7 @@ small, .small {
 .mt-4 {
  /* margin-top: 1.5rem !important;*/
 }
-.searchPanel{width:100#; height:auto; /*border:1px solid #000000;*/ width:235px; display:none;}
+.searchPanel{width:100px; height:auto; /*border:1px solid #000000;*/ width:235px; display:none;}
 .searchSectionTable{display:none;}
 .iconSpacing{margin-right:20px; cursor:pointer;}
 .iconSpacingLeft{margin-left:10px; cursor:pointer;}
@@ -1036,7 +1036,7 @@ small, .small {
 .topIconDiv{float:left; margin-top:10px; margin-bottom:20px;}
 .topIconDiv2{float:left; display:none; margin-top:10px; margin-bottom:20px;}
 .topIconDiv3{float:left; display:none; margin-top:10px; margin-bottom:20px;}
-.topIconDiv4{float:left;  margin-top:10px; margin-bottom:}
+.topIconDiv4{float:left;  margin-top:10px; margin-bottom:0px}
 .topIconDivRight{float:right; margin-top:10px; margin-bottom:20px;}
 .enterData{width:60%; height:auto; margin-top:30px; display:none; margin:0 auto; border-radius:10px; padding:20px 20px 8px 20px;
 box-shadow: -1px 0px 5px 8px rgba(215,215,215,0.20);
@@ -1122,8 +1122,7 @@ display: block;
 .topMenuAlign{margin-top:0px;}
 .btn-primary {
     color: #000;
-    background-color: #f8f9fa;
-   1px solid rgba(0, 0, 0, 0.125);
+    background: 1px solid rgba(0, 0, 0, 0.125);
 	width:90%;
 	height:30px;
 	font-size:14px;
