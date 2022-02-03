@@ -4,11 +4,11 @@
 
 module.exports = {
     smtp: {
-        host: 'smtp.hostinger.in',
+        host: 'smtp.hostinger.com',
         port: 465,
         secure: true, // use SSL
         auth: {
-            user: 'bmartyn@acmesoftware.net',
+            user: 'notifications@imanage.host',
             pass: 'Reset123!'
         }
     },
