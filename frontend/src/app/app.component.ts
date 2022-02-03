@@ -18,6 +18,7 @@ export class AppComponent {
   companies:Company[] = [];
   authState: boolean = false;
   accessDenied: boolean = false;
+  userFullName: string = '';
   constructor(private loginService:LoginService, private router:Router, private cookieService:CookieService, private appService:AppService){
     this.loginService.authState.subscribe(async (state:boolean) => {
       if(!state)
@@ -28,6 +29,8 @@ export class AppComponent {
           this.router.navigate(['/user'])
         if(!this.selectedCompany && this.cookieService.get('selectedCompany'))
           this.selectedCompany = this.cookieService.get('selectedCompany');
+        if(!this.userFullName && this.cookieService.get('userFullName'))
+          this.userFullName = this.cookieService.get('userFullName');
       }
       this.authState = state;
     })
