@@ -26,6 +26,8 @@ export class AppComponent {
         await this.initCompanyDropdown();
         if(!location.pathname || location.pathname === '/' || location.pathname === '/login') // ActivatedRoute is not available here, so use window.location
           this.router.navigate(['/user'])
+        if(!this.selectedCompany && this.cookieService.get('selectedCompany'))
+          this.selectedCompany = this.cookieService.get('selectedCompany');
       }
       this.authState = state;
     })

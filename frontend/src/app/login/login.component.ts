@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
     this.loginForm = new LoginViewModel();
     this.loginForm.userName = 'adri';
     this.loginForm.password = '1111';
-    this.loginForm.companyName = 'Demo';
     this.loginForm.tenantName = 'Demo';
   }
 
@@ -25,7 +24,7 @@ export class LoginComponent implements OnInit {
   }
   async doLogin():Promise<void>{
     try{
-      let response = await lastValueFrom(this.loginService.doLogin(this.loginForm.userName, this.loginForm.password, this.loginForm.tenantName, this.loginForm.companyName));
+      let response = await lastValueFrom(this.loginService.doLogin(this.loginForm.userName, this.loginForm.password, this.loginForm.tenantName));
       this.cookieService.set('jwt', response.token);
       this.cookieService.set('selectedCompany', response.defaultcompany)
       this.loginService.authState.next(true);
