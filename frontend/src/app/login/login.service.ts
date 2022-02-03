@@ -19,12 +19,11 @@ export class LoginService {
     this.cookieService.delete('jwt');
     this.authState.next(false);
   }
-  doLogin(username: string, password: string, tenantName: string, companyName: string): Observable<{token: string, defaultcompany: string}> {
+  doLogin(username: string, password: string, tenantName: string): Observable<{token: string, defaultcompany: string}> {
     return this.httpClient.post<{token: string, defaultcompany: string}>(this.baseUrl + 'login', {
       username,
       password,
-      tenantName,
-      companyName
+      tenantName
     })
   }
 }
