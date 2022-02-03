@@ -4,25 +4,25 @@
 		Companies
 	</div>
 	<div class="menuSect">
-		<div Class="menuLast">
+		<div Class="menuLast" (click)="beginAddCompany(addCompany)">
 			<div class="menuRightDiv" >
 				<img src="assets/images/addIcon.png" class="addIconClass addCategryPop">
 			</div>
-			<div class="menuDivText addCategryPop" (click)="beginAddCompany(addCompany)">
+			<div class="menuDivText addCategryPop">
 				Copy Company
 			</div>
 		</div>
-		<div Class="menuSecond">
+		<div Class="menuSecond" (click)="beginAddCompany(addCompany)">
 			<div class="menuRightDiv" >
 				<img src="assets/images/addIcon.png" class="addIconClass addCategryPop">
 			</div>
-			<div class="menuDivText addCategryPop" (click)="beginAddCompany(addCompany)">
+			<div class="menuDivText addCategryPop">
 				Add Company
 			</div>
 		</div>
 		<div Class="menuFirst">
 			<ul>
-				<li><a [routerLink]="['/company']">Companies</a></li>
+				<li><a [routerLink]="['/company']" class="font-weight-bold">Companies</a></li>
 				<li><a [routerLink]="['/category']">Categories</a></li>
 				<li><a [routerLink]="['/user']">Users</a></li>
 			</ul>

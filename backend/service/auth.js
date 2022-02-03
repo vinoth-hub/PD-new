@@ -38,7 +38,8 @@ module.exports = {
             var token = jwt.sign(decodedJwt, secret);
             req.loginResult = {
                 token: token,
-                defaultcompany: user.defaultcompany
+                defaultcompany: user.defaultcompany,
+                userFullName: user.fullname
             }
             req.decodedJwt = decodedJwt
             next();

@@ -81,3 +81,19 @@ body{
   a{
     text-decoration: none;
   }
+.menuSect{
+  .menuFirst{
+    li{
+      a{
+        &.font-weight-bold{ /* Bootstrap not working, so we put it here */
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .menuSecond, .menuLast{
+    cursor: pointer;
+  }
+}
+  
+  
