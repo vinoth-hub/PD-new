@@ -10,10 +10,12 @@ import { Company } from './view-models/company.view-model';
 export class AppService {
   baseUrl: string;
   companiesUpdated: Subject<Company[]>;
+  httpEvent: Subject<boolean>;
 
   constructor(private httpClient: HttpClient) { 
     this.baseUrl = environment.API_URL;
     this.companiesUpdated = new Subject;
+    this.httpEvent =  new Subject;
   }
   getCompanyList(): Observable<Company[]> {
     return this.httpClient.get<Company[]>(this.baseUrl + 'companies');

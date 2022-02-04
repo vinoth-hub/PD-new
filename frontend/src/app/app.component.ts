@@ -19,6 +19,7 @@ export class AppComponent {
   authState: boolean = false;
   accessDenied: boolean = false;
   userFullName: string = '';
+  inProgressXhrCount: number = 0;
   constructor(private loginService:LoginService, private router:Router, private cookieService:CookieService, private appService:AppService){
     this.loginService.authState.subscribe(async (state:boolean) => {
       if(!state)
@@ -39,6 +40,14 @@ export class AppComponent {
     })
     this.appService.companiesUpdated.subscribe((updatedCompanies) => {
       this.companies = updatedCompanies;
+    })
+    this.appService.httpEvent.subscribe((ev) => {
+      if(this.inProgressXhrCount < 0) // Something is wrong. Reset. Typically this case will not be executed except in case of severe error
+        this.inProgressXhrCount = 0;
+      if(ev)
+        this.inProgressXhrCount++;
+      else
+        this.inProgressXhrCount--;
     })
   }
   async ngOnInit(): Promise<void> {

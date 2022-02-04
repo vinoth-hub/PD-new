@@ -1,4 +1,9 @@
 <body class="sb-nav-fixed">
+	<div class="spinner-container" *ngIf="inProgressXhrCount>0">
+		<div class="spinner-border text-success" role="status">
+			<span class="sr-only">Loading...</span>
+		  </div>
+	</div>
 	<!--/**************** Top Header Section Start Here ************************/-->
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" *ngIf="authState">
 		<a class="navbar-brand ps-3" href="#"><img src="assets/images/logo.png" width="80"/></a>
