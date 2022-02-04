@@ -77,7 +77,7 @@
     				<td valign="top">
 	    				<a href="javascript:void(0);" class="deleteClass" (click)="deleteById(categories[i].categoryID)">Delete</a>
 		    			<br/>
-			    		<a href="#" class="EditCriteriaClass addImg">Edit Criteria</a>
+			    		<a href="javascript:void(0);" (click)="beginAddCriteria(editCriteria, categories[i])" class="EditCriteriaClass addImg">Edit Criteria</a>
 				    	<br/>
 					    <a href="javascript:void(0);" class="editCategoryClass addCategryPop" (click)="openModal(modalForm, categories[i])">Edit Categories</a>
 				    </td>
