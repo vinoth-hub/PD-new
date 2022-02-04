@@ -9,10 +9,10 @@ const category = require('../service/category');
 module.exports = {
     register:{
         common: (app) =>{
-            app.post('/login', auth.login, auth.decodeJwt, helpers.updateLastActivity, (req, res) => {
+            app.post('/api/login', auth.login, auth.decodeJwt, helpers.updateLastActivity, (req, res) => {
                 res.send(req.loginResult)
             })
-            app.get('/companies', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, (req, res, next) => {
+            app.get('/api/companies', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, (req, res, next) => {
                 if(!req.decodedJwt){
                     res.sendStatus(403);
                     return;
@@ -21,7 +21,7 @@ module.exports = {
             }, common.getCompanyList)
         },
         user:(app) => {
-            const baseUrl = '/user';
+            const baseUrl = '/api/user';
             app.get(`${baseUrl}/all-access-pages`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.getAllAccessPages);
             app.get(`${baseUrl}/all-categories`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.getAllCategories);
             app.get(baseUrl, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.userList);
@@ -37,7 +37,7 @@ module.exports = {
             }); 
         },
         company:(app) => {
-            const baseUrl = '/company';
+            const baseUrl = '/api/company';
             app.get(baseUrl, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.getList)
             app.get(`${baseUrl}/:companyId`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.details)
             app.delete(`${baseUrl}/:companyId`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.delete)
@@ -48,7 +48,7 @@ module.exports = {
             app.post(baseUrl, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.companies, company.create)
         },
         category:(app) => {
-            const baseUrl = '/category';
+            const baseUrl = '/api/category';
             app.get(baseUrl + '/criteria-options',auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.category, category.criteriaOptions)
             app.get(baseUrl, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.category, category.getList);
             app.get(baseUrl + '/summary', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.category, category.getSummary);
