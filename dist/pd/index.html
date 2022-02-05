@@ -17,5 +17,18 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-	<script src="runtime.71b0b2dd7aad2cf7.js" type="module"></script><script src="polyfills.1656038ebc9a94f0.js" type="module"></script><script src="main.9b0b4375c9d47a89.js" type="module"></script>
+		<script>
+			var wsUrl = "ws://localhost:42069/"
+			if(window.location.hostname !== 'localhost')
+				wsUrl = 'ws://' + window.location.origin;
+			var webSocket = new WebSocket(wsUrl);
+			webSocket.onmessage = (event) => {
+				if(document.cookie.includes('userId=' + event.data.userId) + ''){
+					// manually do LoginService.challenge()
+					document.cookie = '';
+					window.location.href = '/login'
+				}
+			}
+		</script>
+	<script src="runtime.71b0b2dd7aad2cf7.js" type="module"></script><script src="polyfills.1656038ebc9a94f0.js" type="module"></script><script src="main.934a72d989404216.js" type="module"></script>
 </body></html>

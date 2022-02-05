@@ -17,5 +17,13 @@ module.exports = {
             if(conn)
                 conn.end();
         }
+    },
+    broadcastLogout: (wsServer) => {
+        return (req, res) => {
+            wsServer.clients.forEach(client => {
+                client.send(JSON.stringify({userId: req.params.userId}))
+            });
+            res.sendStatus(204)
+        }
     }
 }

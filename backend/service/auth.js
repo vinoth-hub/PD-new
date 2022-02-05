@@ -39,7 +39,8 @@ module.exports = {
             req.loginResult = {
                 token: token,
                 defaultcompany: user.defaultcompany,
-                userFullName: user.fullname
+                userFullName: user.fullname,
+                userId: user.userID
             }
             req.decodedJwt = decodedJwt
             next();

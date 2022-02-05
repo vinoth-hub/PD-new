@@ -273,13 +273,13 @@ module.exports = {
             if (conn) return conn.end();
         }
     },
-    forceLogout: async(req, res) => {
+    forceLogout: async(req, res, next) => {
         var conn;
         try{
             conn = await pool.getConnection();
             var lastActivity = new Date(0);
             await conn.query(`UPDATE ${req.decodedJwt.db}.\`user\` SET lastactivity=? WHERE userID=?`,[helpers.prepareDateForMaria(lastActivity), req.params.userId]);
-            res.sendStatus(204);
+            next()
         }
         catch(err){
             helpers.handleError(res, err);

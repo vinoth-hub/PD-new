@@ -5,6 +5,7 @@ const mailer = require('../service/mailer');
 const helpers = require('../shared/helpers');
 const company = require('../service/company');
 const category = require('../service/category');
+var Websocket = require('ws');
 
 module.exports = {
     register:{
@@ -20,7 +21,7 @@ module.exports = {
                 next();
             }, common.getCompanyList)
         },
-        user:(app) => {
+        user:(app, wsServer) => {
             const baseUrl = '/api/user';
             app.get(`${baseUrl}/all-access-pages`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.getAllAccessPages);
             app.get(`${baseUrl}/all-categories`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.getAllCategories);
@@ -29,7 +30,7 @@ module.exports = {
             app.get(`${baseUrl}/:userId/ts-details`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.getTsDetails);
             app.delete(`${baseUrl}/:userId`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.deleteUser);
             app.put(`${baseUrl}/:userId/deactivate`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.deactivateUser);
-            app.put(`${baseUrl}/:userId/force-logout`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.forceLogout);
+            app.put(`${baseUrl}/:userId/force-logout`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.forceLogout, common.broadcastLogout(wsServer));
             app.put(`${baseUrl}/password-reset`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, auth.generatePassword, user.setPassword, mailer.passwordReset)
             app.put(baseUrl, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.updateUser);
             app.post(baseUrl, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, auth.generatePassword, user.createUser, mailer.newAccount, (req, res) => {

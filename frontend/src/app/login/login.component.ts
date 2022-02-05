@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
       this.cookieService.set('jwt', response.token);
       this.cookieService.set('selectedCompany', response.defaultcompany)
       this.cookieService.set('userFullName', response.userFullName)
+      this.cookieService.set('userId', response.userId + '')
       this.loginService.authState.next(true);
     }
     catch(err){

@@ -1,5 +1,7 @@
 var express = require('express');
 var cors = require('cors');
+var http = require('http');
+var Websocket = require('ws');
 const routes = require('./backend/shared/routes');
 var app = express();
 var path = require('path');
@@ -9,21 +11,23 @@ app.use(cors({
     origin: '*', 
 }));
 
+
+var httpServer = http.createServer(app)
+var wsServer = new Websocket.WebSocketServer({server: httpServer});
 routes.register.common(app);
-routes.register.user(app);
+routes.register.user(app, wsServer);
 routes.register.company(app);
 routes.register.category(app);
-
 
 app.use(express.static('dist/pd'));
 
 app.get('/*',function(req,res){
-		let reqPath = path.join(__dirname, 'dist/pd/index.html');
-		res.sendFile(reqPath);
-	});
+	let reqPath = path.join(__dirname, 'dist/pd/index.html');
+	res.sendFile(reqPath);
+});
 
 
 
-app.listen(port, ()=>{
+httpServer.listen(port, ()=>{
     console.log('Ready on ',port)
 })
