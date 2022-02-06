@@ -24,6 +24,14 @@ routes.register.user(app, wsServer);
 routes.register.company(app);
 routes.register.category(app);
 
+app.use(express.static('../dist/pd'));
+
+app.get('/*',function(req,res){
+	let reqPath = path.join(__dirname, '../dist/pd/index.html');
+	res.sendFile(reqPath);
+});
+
+
 httpServer.listen(port, ()=>{
     console.log('Ready on ',port)
 })
