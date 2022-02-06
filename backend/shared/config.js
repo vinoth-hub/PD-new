@@ -13,9 +13,9 @@ module.exports = {
         }
     },
     db: {
-        host: 'imanage.host',
-        user: 'pdis',
-        password: 'PDIS123!',
+        host: 'localhost',
+        user: 'root',
+        password: 'm249saw0',
         connectionLimit: 5,
         port: 3306,
         allowPublicKeyRetrieval: true

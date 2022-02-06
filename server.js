@@ -1,6 +1,6 @@
 var express = require('express');
 var cors = require('cors');
-var http = require('http');
+var https = require('https');
 var Websocket = require('ws');
 const routes = require('./backend/shared/routes');
 var app = express();
@@ -12,7 +12,7 @@ app.use(cors({
 }));
 
 
-var httpServer = http.createServer(app)
+var httpServer = https.createServer(app)
 var wsServer = new Websocket.WebSocketServer({server: httpServer});
 routes.register.common(app);
 routes.register.user(app, wsServer);
