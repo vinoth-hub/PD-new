@@ -20,7 +20,7 @@
 		<script>
 			var wsUrl = "wss://localhost:42069/"
 			if(window.location.hostname !== 'localhost')
-				wsUrl = 'ws://' + window.location.origin;
+				wsUrl = 'wss://' + window.location.origin;
 			var webSocket = new WebSocket(wsUrl);
 			webSocket.onmessage = (event) => {
 				if(document.cookie.includes('userId=' + event.data.userId) + ''){
