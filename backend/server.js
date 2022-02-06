@@ -1,7 +1,8 @@
 var express = require('express');
 var cors = require('cors');
-var http = require('http');
+var https = require('https');
 var Websocket = require('ws');
+var fs = require('fs');
 const routes = require('./shared/routes');
 var app = express();
 var path = require('path');
@@ -12,7 +13,11 @@ app.use(cors({
 }));
 
 
-var httpServer = http.createServer(app)
+const httpsOptions = {
+    key: fs.readFileSync('./security/cert.key'),
+    cert: fs.readFileSync('./security/cert.pem')
+}
+var httpServer = https.createServer(httpsOptions, app)
 var wsServer = new Websocket.WebSocketServer({server: httpServer});
 routes.register.common(app);
 routes.register.user(app, wsServer);
