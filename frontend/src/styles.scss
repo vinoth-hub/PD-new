@@ -2,17 +2,6 @@
 body{
     background-color: #F5F5F5;
 }
-.ng-select{
-    &.ng-select-multiple{
-        .ng-select-container{
-            .ng-value-container{
-                .ng-value{
-                    display: none;
-                }
-            } 
-        } 
-    } 
-}
 .bg-theme{
     background: linear-gradient(90deg, #3D8AFF 0%, #29D645 98.3%)
 }
@@ -93,6 +82,11 @@ body{
   }
   .menuSecond, .menuLast{
     cursor: pointer;
+  }
+}
+.tableWrapper{
+  .search-grid{
+    margin-top: 50px;
   }
 }
   

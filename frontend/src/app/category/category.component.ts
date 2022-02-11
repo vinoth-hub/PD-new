@@ -20,6 +20,7 @@ export class CategoryComponent implements OnInit {
   modalRef: BsModalRef;
   categoryForm: CategoryFormViewModel = new CategoryFormViewModel;
   criteriaForm: CriteriaFormViewModel = new CriteriaFormViewModel;
+  searchQuery: string = '';
   constructor(private categoryService: CategoryService, private toastr:ToastrService, private modalService: BsModalService, private loginService: LoginService) { 
     this.modalRef = new BsModalRef;
   }
@@ -35,9 +36,9 @@ export class CategoryComponent implements OnInit {
     this.categoryForm.sourceCategoryOptions = await lastValueFrom(this.categoryService.getSummary());
   }
   async refreshCategories(pageNumber: number):Promise<void>{
-    let response = await lastValueFrom(this.categoryService.getList(pageNumber));
+    let response = await lastValueFrom(this.categoryService.getList(pageNumber, this.searchQuery));
     this.categories = response.list;
-    this.pagination = new PaginationViewModel(Math.ceil(response.count/3));
+    this.pagination = new PaginationViewModel(Math.ceil(response.count/25));
     this.pagination.setActiveIndex(pageNumber - 1)
   }
   async paginateTo(targetPage:number): Promise<void>{ // Pagination done on server side
@@ -76,7 +77,7 @@ export class CategoryComponent implements OnInit {
   }
   openModal(template: TemplateRef<any>, category:CategoryViewModel){
     this.modalRef = this.modalService.show(template);
-    this.categoryForm.category = category;
+    this.categoryForm.category = Object.assign({}, category);
   }
   beginAddCriteria(template: TemplateRef<any>, category:CategoryViewModel){
     this.modalRef = this.modalService.show(template);

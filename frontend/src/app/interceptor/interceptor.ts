@@ -23,7 +23,7 @@ export class Interceptor implements HttpInterceptor{
             cloneConfig.setHeaders = cloneConfig.setHeaders || {};
             cloneConfig.setHeaders["Content-Type"] = "application/json"
         }
-        if(selectedCompany)
+        if(selectedCompany && !clone.params.get('selectedCompany')?.length)
             cloneConfig.setParams = { selectedCompany };
         clone = req.clone(cloneConfig);
         return next.handle(clone).pipe(map((ev) => {

@@ -13,8 +13,8 @@ export class CompanyService {
   getAllTimezones():Observable<any>{
     return this.httpClient.get(this.baseUrl + 'timezones/all');
   }
-  getCompanyList(pageNumber:number):Observable<any>{
-    return this.httpClient.get(`${this.baseUrl}?pageNumber=${pageNumber}`);
+  getCompanyList(pageNumber:number, search: string):Observable<any>{
+    return this.httpClient.get(`${this.baseUrl}?pageNumber=${pageNumber}&search=${search}`);
   }
   setTimezone(companyId: number, timezone: string):Observable<any>{
     return this.httpClient.put(`${this.baseUrl}timezone`, {companyId, timezone});

@@ -65,15 +65,20 @@ let helpers = {
             if (conn) return conn.end();
         }
     },
-    checkAuthorization: async (req, res, next, fn, ignoreCompanyFilter) => {
+    checkAuthorization: async (req, res, next, fn, customCompanyFilter) => {
         let conn;
         try{
+            var companyFilterClause = ` and t.companyID = ${req.query.selectedCompany}` // default
+            if(customCompanyFilter){ // custom
+                if(!customCompanyFilter.length) // ignore
+                    companyFilterClause = '';
+                else // use list
+                    companyFilterClause = `and t.companyID in [${customCompanyFilter.toLocaleString()}]`
+            }
             conn = await pool.getConnection();
             var query = `select count(1) from ${req.decodedJwt.db}.transsecurity t 
             inner join ${req.decodedJwt.db}.\`security\` s on t.securityID = s.securityID and t.companyID = s.companyID 
-            where t.userID  = ${req.decodedJwt.userId} and \`level\` = '${fn}'`
-            if(!ignoreCompanyFilter)
-                query += ` and t.companyID = ${req.query.selectedCompany}`
+            where t.userID  = ${req.decodedJwt.userId} and \`level\` = '${fn}' ${companyFilterClause}`;
             var rows = await conn.query(query)
             if(!rows || !rows[0] || !rows[0]["count(1)"]){
                 res.sendStatus(403);
