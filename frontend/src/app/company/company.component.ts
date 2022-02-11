@@ -22,6 +22,7 @@ export class CompanyComponent implements OnInit {
   pagination: PaginationViewModel = new PaginationViewModel;
   modalRef: BsModalRef;
   companyForm: CompanyFormViewModel = new CompanyFormViewModel;
+  searchQuery: string = '';
   constructor(private companyService: CompanyService,
     private toastr:ToastrService,
     private modalService: BsModalService,
@@ -52,9 +53,9 @@ export class CompanyComponent implements OnInit {
     }
   }
   async refreshCompanies(pageNumber: number): Promise<any> {
-    let response = await lastValueFrom(this.companyService.getCompanyList(pageNumber));
+    let response = await lastValueFrom(this.companyService.getCompanyList(pageNumber, this.searchQuery));
     this.companies = response.list;
-    this.pagination = new PaginationViewModel(Math.ceil(response.count/3));
+    this.pagination = new PaginationViewModel(Math.ceil(response.count/25));
     this.pagination.setActiveIndex(pageNumber - 1)
   }
   async loadTimezones(): Promise<any> {
@@ -106,7 +107,7 @@ export class CompanyComponent implements OnInit {
   }
   openModal(template: TemplateRef<any>, companyInForm:Company){
     this.modalRef = this.modalService.show(template);
-    this.companyForm.company = companyInForm;
+    this.companyForm.company = Object.assign({}, companyInForm);
   }
   async submitForm():Promise<void>{
     try{

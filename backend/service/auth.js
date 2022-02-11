@@ -81,10 +81,10 @@ module.exports = {
             await helpers.checkAuthorization(req, res, next, 'Edit Users');
         },
         companies: async(req, res, next) => {
-            await helpers.checkAuthorization(req, res, next, 'Edit Company', true);
+            await helpers.checkAuthorization(req, res, next, 'Edit Company', []);
         },
         category: async(req, res, next) => {
-            await helpers.checkAuthorization(req, res, next, 'Edit Categories', true);
+            await helpers.checkAuthorization(req, res, next, 'Edit Categories');
         },
     },
     generatePassword: async(req, res, next) => {

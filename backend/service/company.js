@@ -22,8 +22,11 @@ module.exports = {
         let conn;
         try{
             conn = await pool.getConnection();
-            var rows = await conn.query(`SELECT companyID, name, timezone, ip, dst FROM ${req.decodedJwt.db}.company limit ${3 * (req.query.pageNumber - 1)},3`);
-            var count = await conn.query(`SELECT COUNT(1) AS rowCount FROM ${req.decodedJwt.db}.company`)
+            var filterClause = '';
+            if(req.query.search?.length)
+                filterClause = `and name like '%${req.query.search}%'`;
+            var rows = await conn.query(`SELECT companyID, name, timezone, ip, dst FROM ${req.decodedJwt.db}.company where isdeleted = 0 ${filterClause} limit ${25 * (req.query.pageNumber - 1)},25`);
+            var count = await conn.query(`SELECT COUNT(1) AS rowCount FROM ${req.decodedJwt.db}.company where isdeleted = 0 ${filterClause}`)
             res.send({
                 list: rows,
                 count: count[0].rowCount

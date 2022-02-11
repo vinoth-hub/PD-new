@@ -9,15 +9,18 @@ module.exports = {
         try{
             conn = await pool.getConnection();
             var response = {};
+            var filterClause = '';
+            if(req.query.search?.length)
+                filterClause = `and (u.username like '%${req.query.search}%' or u.fullname like '%${req.query.search}%' or u.title like '%${req.query.search}%')`;
             var subQuery = `(select u.username, u.userID, c.category, s.level, u.ip, u.title, u.fullname
             from ${req.decodedJwt.db}.user u left join ${req.decodedJwt.db}.transsecurity t on u.userID = t.userID
             inner join ${req.decodedJwt.db}.company c2 on c2.companyID = t.companyID 
             left join ${req.decodedJwt.db}.security s on t.securityID = s.securityID and t.companyID = s.companyID 
             left join ${req.decodedJwt.db}.category c on t.categoryID = c.categoryID and t.companyID = c.companyID 
-            where c2.companyID = ${req.query.selectedCompany} and u.isDeleted = 0)`; // TO-DO: Check for SQLi
+            where c2.companyID = ${req.query.selectedCompany} and u.isDeleted = 0 ${filterClause})`; // TO-DO: Check for SQLi
             var query = `select sq.username, sq.userID, sq.fullname as fullName, group_concat(sq.category) as categoryList, group_concat(sq.level)as levelList, sq.ip, sq.title from `
             + subQuery + 
-            `as sq group by sq.userID order by sq.userID limit ${3 * (req.query.pageNumber - 1)},3`
+            `as sq group by sq.userID order by sq.userID limit ${25 * (req.query.pageNumber - 1)},25`
             let rows = await conn.query(query);
             rows.forEach((user)=>{
                 user.categoryList = user.categoryList?.length ? user.categoryList.split(',') : user.categoryList
@@ -30,7 +33,7 @@ module.exports = {
             response.userList = rows;
             response.count = (await conn.query(`select count(1) as rowCount from  ${req.decodedJwt.db}.\`user\` u where 
                 exists (select * from ${req.decodedJwt.db}.transsecurity t where t.userID = u.userID and t.companyID = ${req.query.selectedCompany})
-                and u.isDeleted = 0`))[0].rowCount
+                and u.isDeleted = 0 ${filterClause}`))[0].rowCount
             res.send(response);
         }
         catch(err){
@@ -227,6 +230,12 @@ module.exports = {
         var conn;
         try{
             conn = await pool.getConnection();
+            var duplicateUsers = await conn.query(`SELECT count(1) FROM ${req.decodedJwt.db}.user WHERE title = '${req.body.title}'`)
+            if(duplicateUsers && duplicateUsers[0] && duplicateUsers[0]['count(1)']){
+                res.status(400);
+                res.send('Duplicate user exists with same email');
+                return;
+            }
             var insertId = (await conn.query(`
             INSERT INTO ${req.decodedJwt.db}.\`user\`
             (isActive,

@@ -1,3 +1,4 @@
+import { Company } from "./company.view-model";
 import { UserViewModel } from "./user.view-model";
 
 export class UserFormViewModel{
@@ -6,4 +7,6 @@ export class UserFormViewModel{
     accessPageOptions: string[] = [];
     userSummaryList:UserViewModel[] = [];
     copyUserId: number = 0;
+    companyList: Company[] = [];
+    targetCompanyId: string = '';
 }

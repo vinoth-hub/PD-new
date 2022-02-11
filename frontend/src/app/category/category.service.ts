@@ -9,8 +9,8 @@ import { environment } from 'src/environments/environment';
 export class CategoryService {
   baseUrl: string = environment.API_URL + 'category/';
   constructor(private httpClient:HttpClient) { }
-  getList(pageNumber: number):Observable<any>{
-    return this.httpClient.get(this.baseUrl + '?pageNumber=' + pageNumber);
+  getList(pageNumber: number, search: string):Observable<any>{
+    return this.httpClient.get(`${this.baseUrl}?pageNumber=${pageNumber}&search=${search}`);
   }
   getSummary():Observable<any>{
     return this.httpClient.get(this.baseUrl + 'summary');

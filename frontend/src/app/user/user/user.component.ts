@@ -8,6 +8,8 @@ import { UserViewModel } from 'src/app/view-models/user.view-model';
 import { UserFormViewModel } from 'src/app/view-models/user-form.view-model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoginService } from 'src/app/login/login.service';
+import { AppService } from 'src/app/app.service';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -18,7 +20,13 @@ export class UserComponent implements OnInit {
   pagination: PaginationViewModel = new PaginationViewModel;
   modalRef: BsModalRef;
   userForm: UserFormViewModel = new UserFormViewModel;
-  constructor(private userService: UserService, private toastr:ToastrService, private modalService: BsModalService,private loginService: LoginService) { 
+  searchQuery: string = '';
+  constructor(private userService: UserService,
+    private toastr:ToastrService,
+    private modalService: BsModalService,
+    private loginService: LoginService,
+    private appService: AppService,
+    private cookieService: CookieService) { 
     this.modalRef = new BsModalRef;
   }
 
@@ -27,7 +35,8 @@ export class UserComponent implements OnInit {
       await Promise.all([
         this.getAllCategories(),
         this.getAllAccessPages(),
-        this.refreshUsers(1)
+        this.refreshUsers(1),
+        this.fillCompanyDropdown()
       ]);
       this.loginService.accessDenied.next(false)
     }
@@ -44,9 +53,9 @@ export class UserComponent implements OnInit {
   }
   
   async refreshUsers(pageNumber: number): Promise<void> {
-    var response = await lastValueFrom(this.userService.loadUsers(pageNumber));
+    var response = await lastValueFrom(this.userService.loadUsers(pageNumber, this.searchQuery));
     this.users = response.userList;
-    this.pagination = new PaginationViewModel(Math.ceil(response.count/3));
+    this.pagination = new PaginationViewModel(Math.ceil(response.count/25));
     this.pagination.setActiveIndex(pageNumber - 1)
   }
   async paginateTo(targetPage:number): Promise<void>{ // Pagination done on server side
@@ -101,12 +110,13 @@ export class UserComponent implements OnInit {
   }
   openModal(template: TemplateRef<any>, userInModal:UserViewModel){
     this.modalRef = this.modalService.show(template);
-    this.userForm.user = userInModal;
+    this.userForm.user = Object.assign({}, userInModal); // shallow copy
+    this.userForm.targetCompanyId = this.cookieService.get('selectedCompany');
   }
   async submitForm():Promise<void>{
     try{
       if(this.userForm.user.userID){
-        await lastValueFrom(this.userService.updateUser(this.userForm.user));
+        await lastValueFrom(this.userService.updateUser(this.userForm.user, this.userForm.targetCompanyId));
         this.toastr.success('User updated');
       }
       else{
@@ -117,18 +127,48 @@ export class UserComponent implements OnInit {
       this.modalRef.hide()
     }
     catch(err){
-      this.toastr.error('Something went wrong');
+      if(err instanceof HttpErrorResponse){
+        if(err.status === 400 && typeof err.error === 'string')
+          this.toastr.error(err.error);
+        else if(err.status === 403)
+          this.toastr.error('Access denied for this company')
+        else
+        this.toastr.error('Something went wrong');
+      }
+      else
+        this.toastr.error('Something went wrong');
     }
   }
   async beginCreateUser(template: TemplateRef<any>):Promise<void>{
     this.userForm.userSummaryList = await lastValueFrom(this.userService.getUserSummary())
     this.openModal(template, new UserViewModel);
   }
-  async loadTransSecurity():Promise<void>{
-    if(this.userForm.copyUserId)
-      var tsDetails:any = await lastValueFrom(this.userService.loadTransSecurity(this.userForm.copyUserId))
-    this.userForm.user.categoryList = tsDetails.categoryList.split(',');
-    this.userForm.user.levelList = tsDetails.levelList.split(',');
+  async loadTransSecurity(formState: string):Promise<void>{
+    var tsDetails:any;
+    try{
+      if(formState === "create"){
+      if(!this.userForm.copyUserId)
+        return;
+        tsDetails = await lastValueFrom(this.userService.loadTransSecurity(this.userForm.copyUserId))
+      }
+      else if(formState === "edit")
+        tsDetails = await lastValueFrom(this.userService.loadTransSecurity(this.userForm.user.userID, this.userForm.targetCompanyId))
+      else throw new Error('formState')
+    }
+    catch(err){
+      if(err instanceof HttpErrorResponse){
+        if(err.status === 403)
+          this.toastr.error('Access denied for this company')
+        else
+          this.toastr.error('Something went wrong');
+      }
+      else
+        this.toastr.error('Something went wrong');
+    }
+    finally{
+      this.userForm.user.categoryList = tsDetails?.categoryList?.split(',') || [];
+      this.userForm.user.levelList = tsDetails?.levelList?.split(',') || [];
+    }
   }
   async forceLogout(userId: number):Promise<void>{
     try{
@@ -138,5 +178,8 @@ export class UserComponent implements OnInit {
     catch(err){
       this.toastr.error('Something went wrong');
     }
+  }
+  async fillCompanyDropdown(): Promise<void> {
+    this.userForm.companyList = await lastValueFrom(this.appService.getCompanyList());
   }
 }

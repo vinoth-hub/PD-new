@@ -733,7 +733,6 @@ nav.navbar {
   flex-shrink: 0;
 }
 .sb-sidenav-dark {
-background: linear-gradient(180deg, #3D8AFF 0%, #29D645 100%);
   /*background-color: #3650af;*/
   color: rgba(255, 255, 255, 0.7);
  /* padding-left:20px;*/ /*** For Checking ********/
@@ -752,30 +751,18 @@ background: linear-gradient(180deg, #3D8AFF 0%, #29D645 100%);
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
   color: rgba(255, 255, 255, 0.25);
 }
-.sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
+.sb-sidenav-dark .sb-sidenav-menu .nav-link {
   color: #fff;
   /*width: 82px;
 height: 73px;*/
-background: linear-gradient(124.86deg, #82B6FF 1.41%, #60DF7D 99.91%);
-box-shadow: 0px 8px 10px #266FDC;
 border-radius: 10px;
 margin-right:30px;
 }
-.sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
-  color: #fff;
-  background: linear-gradient(124.86deg, #82B6FF 1.41%, #60DF7D 99.91%);
-box-shadow: 0px 8px 10px #266FDC;
-border-radius: 10px;
-margin-right:30px;
-
+.sb-sidenav-dark .sb-sidenav-menu .nav-link.active, .nav-link:hover {
+box-shadow: 0px 8px 10px gray;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
   color: #fff;
-  /*background: linear-gradient(124.86deg, #82B6FF 1.41%, #60DF7D 99.91%);
-box-shadow: 0px 8px 10px #266FDC;*/
-border-radius: 10px;
-margin-right:30px;
-
 }
 .sb-sidenav-dark .sb-sidenav-footer {
   background-color: #343a40;
@@ -1467,7 +1454,6 @@ padding-left:5px;
 #tableData {
   
   margin: 0 auto;
-  margin-top:70px;
   
 }
 .paging-nav .next{
