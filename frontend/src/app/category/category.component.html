@@ -133,7 +133,7 @@
                 <img src="assets/images/popupAdd.png" width="60"/>
             </div>
             <div class="popupSubmitBlck" (click)="submitCriteria()">
-                <input type="submit" value="Update" class="updateButtonClass"/>
+                <input type="submit" value="Update" class="updateButtonClass bg-primary"/>
             </div>
         </form>
     </div>
@@ -155,7 +155,7 @@
 					<option value="0">-- Select --</option>
 					<option [value]="item.categoryID" *ngFor="let item of categoryForm.sourceCategoryOptions">{{item.name}}</option>
 				</select>
-				<input type="submit" value="Update" class="formButtonClass" (click)="submitForm()"/>
+				<input type="submit" value="Update" class="formButtonClass bg-primary" (click)="submitForm()"/>
 			</form>
 		</div>
 	</div>

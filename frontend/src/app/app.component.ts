@@ -19,6 +19,7 @@ export class AppComponent {
   authState: boolean = false;
   accessDenied: boolean = false;
   userFullName: string = '';
+  defaultCompany:string = '';
   inProgressXhrCount: number = 0;
   constructor(private loginService:LoginService, private router:Router, private cookieService:CookieService, private appService:AppService){
     this.loginService.authState.subscribe(async (state:boolean) => {
@@ -32,6 +33,8 @@ export class AppComponent {
           this.selectedCompany = this.cookieService.get('selectedCompany');
         if(!this.userFullName && this.cookieService.get('userFullName'))
           this.userFullName = this.cookieService.get('userFullName');
+        if(!this.defaultCompany && this.cookieService.get('defaultCompany'))
+          this.defaultCompany = this.cookieService.get('defaultCompany');
       }
       this.authState = state;
     })

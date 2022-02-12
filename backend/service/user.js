@@ -12,13 +12,13 @@ module.exports = {
             var filterClause = '';
             if(req.query.search?.length)
                 filterClause = `and (u.username like '%${req.query.search}%' or u.fullname like '%${req.query.search}%' or u.title like '%${req.query.search}%')`;
-            var subQuery = `(select u.username, u.userID, c.category, s.level, u.ip, u.title, u.fullname
+            var subQuery = `(select u.username, u.userID, c.category, s.level, u.ip, u.title, u.fullname, u.defaultcompany
             from ${req.decodedJwt.db}.user u left join ${req.decodedJwt.db}.transsecurity t on u.userID = t.userID
             inner join ${req.decodedJwt.db}.company c2 on c2.companyID = t.companyID 
             left join ${req.decodedJwt.db}.security s on t.securityID = s.securityID and t.companyID = s.companyID 
             left join ${req.decodedJwt.db}.category c on t.categoryID = c.categoryID and t.companyID = c.companyID 
             where c2.companyID = ${req.query.selectedCompany} and u.isDeleted = 0 ${filterClause})`; // TO-DO: Check for SQLi
-            var query = `select sq.username, sq.userID, sq.fullname as fullName, group_concat(sq.category) as categoryList, group_concat(sq.level)as levelList, sq.ip, sq.title from `
+            var query = `select sq.username, sq.userID, sq.fullname as fullName, group_concat(sq.category) as categoryList, group_concat(sq.level)as levelList, sq.ip, sq.title, sq.defaultcompany as defaultCompany from `
             + subQuery + 
             `as sq group by sq.userID order by sq.userID limit ${25 * (req.query.pageNumber - 1)},25`
             let rows = await conn.query(query);

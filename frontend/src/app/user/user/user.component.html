@@ -91,9 +91,9 @@
 						</ng-template>
 					</td>
 					<td valign="top">
-						<div class="btn-group bg-secondary">
-							<button type="button" class="btn" (click)="openModal(editUser, users[i])">Edit</button>
-							<button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<div class="btn-group">
+							<button type="button" class="btn btn-secondary" (click)="openModal(editUser, users[i])">Edit</button>
+							<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<span class="sr-only">Toggle Dropdown</span>
 							</button>
 							<div class="dropdown-menu">
@@ -138,7 +138,7 @@
 					<tr>
 						<td colspan="2">
 							<select class="formDropdown" [(ngModel)]="userForm.targetCompanyId" name="targetCompany" (change)="loadTransSecurity('edit')">
-								<option [value]="company.companyID" *ngFor="let company of userForm.companyList">{{company.name}}</option>
+								<option [value]="company.companyID" *ngFor="let company of userForm.companyList">{{company | companyOption:userForm.user.defaultCompany}}</option>
 							</select>
 						</td>
 					</tr>
@@ -182,7 +182,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="submit" value="Update" class="formButtonClass" (click)="submitForm()" /></td>
+						<td colspan="2"><input type="submit" value="Update" class="formButtonClass bg-primary" (click)="submitForm()" /></td>
 					</tr>
 				</table>
 			</form>
@@ -256,7 +256,7 @@
 							</select>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="submit" value="Add User" class="formButtonClass" (click)="submitForm()"/></td>
+						<td colspan="2"><input type="submit" value="Add User" class="formButtonClass bg-primary" (click)="submitForm()"/></td>
 					</tr>
 				</table>
 			</form>
