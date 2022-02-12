@@ -8,7 +8,7 @@
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" *ngIf="authState">
 		<a class="navbar-brand ps-3" href="#"><img src="assets/images/logo.png" width="80"/></a>
 		<select class="categoryDropdownInner" [(ngModel)]="selectedCompany" (change)="companyChanged()">
-			<option [value]="company.companyID" *ngFor="let company of companies">{{company.name}}</option>
+			<option [value]="company.companyID" *ngFor="let company of companies">{{company | companyOption:defaultCompany}}</option>
 		</select>
 		<ul class="navbar-nav ms-auto topMenuAlign">
 			<li class="nav-item dropdown">

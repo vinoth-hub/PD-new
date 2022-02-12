@@ -8,4 +8,5 @@ export class UserViewModel{
     levelList: string[] = [];
     categoryListSummary: string[] = [];
     levelListSummary: string[] = [];
+    defaultCompany: number = 0;
 }

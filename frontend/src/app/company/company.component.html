@@ -127,7 +127,7 @@
 				<input type="text" [(ngModel)]="companyForm.company.ip" [ngModelOptions]="{standalone: true}" class="formDropdown"/>
 				<p class="formText">Observe DayNight Saving Time?</p>
 				<input type="checkbox" [(ngModel)]="companyForm.company.dst" [ngModelOptions]="{standalone: true}" class="savingTimeLeft"/>
-				<input type="submit" value="Update" class="formButtonClass" (click)="submitForm()"/>
+				<input type="submit" value="Update" class="formButtonClass bg-primary" (click)="submitForm()"/>
 			</form>
 		</div>
 	</div>
@@ -153,7 +153,7 @@
 					<option [value]="timezone.fullname" *ngFor="let timezone of allTimezones">{{timezone.fullname}}</option>
 				</select>
 			</ng-template>
-			<input type="submit" value="Add Company" class="formButtonClass" (click)="submitForm()"/>
+			<input type="submit" value="Add Company" class="formButtonClass bg-primary" (click)="submitForm()"/>
 		</form>
 	</div>
 </div>
