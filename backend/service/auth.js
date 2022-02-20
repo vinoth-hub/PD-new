@@ -1,23 +1,23 @@
 var jwt = require('jsonwebtoken');
-const mariadb = require('mariadb');
+let mysql = require('mysql2/promise');
 const bcrypt = require('bcrypt');
 const config = require('../shared/config');
 const helpers = require('../shared/helpers');
-const pool = mariadb.createPool(config.db);
+const pool = mysql.createPool(config.db);
 const secret = config.jwtEncodingSecret;
 module.exports = {
     login: async(req, res, next) => {
         let conn;
         try{
             conn = await pool.getConnection();
-            var folders = await conn.query('SELECT dbName,tenantID FROM master.tenantfolders WHERE tenantID = (SELECT tenantID FROM master.tenant WHERE tenantName = ?)',[req.body.tenantName])
+            var [folders, fields] = await conn.query('SELECT dbName,tenantID FROM master.tenantfolders WHERE tenantID = (SELECT tenantID FROM master.tenant WHERE tenantName = ?)',[req.body.tenantName])
             if(!folders?.length){
                 res.status(401);
                 res.send('Unknown tenant')
                 return;
             }
             var db = folders[0].dbName;
-            var rows = await conn.query(`SELECT * FROM ${db}.user WHERE username=? AND isActive=1 AND isDeleted=0`,[req.body.username]);
+            var [rows, fields] = await conn.query(`SELECT * FROM ${db}.user WHERE username=? AND isActive=1 AND isDeleted=0`,[req.body.username]);
             if(!rows.length){
                 res.status(401);
                 res.send('No account found')
@@ -49,7 +49,7 @@ module.exports = {
             helpers.handleError(res, err);
         }
         finally{
-            if (conn) return conn.end();
+            if (conn) conn.release()
         }
     },
     decodeJwt: (req, res, next) => {
@@ -107,7 +107,7 @@ module.exports = {
         let conn;
         try{
             conn = await pool.getConnection();
-            var rows = await conn.query(`SELECT lastactivity FROM ${req.decodedJwt.db}.user WHERE userID = ${req.decodedJwt.userId}`)
+            var [rows, fields] = await conn.query(`SELECT lastactivity FROM ${req.decodedJwt.db}.user WHERE userID = ${req.decodedJwt.userId}`)
             if(!rows.length){
                 res.sendStatus(403);
                 return;
@@ -126,7 +126,7 @@ module.exports = {
             helpers.handleError(res, err);
         }
         finally{
-            if (conn) return conn.end();
+            if (conn) conn.release(); 
         }
     }
 }

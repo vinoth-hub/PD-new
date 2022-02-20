@@ -1,13 +1,13 @@
-const mariadb = require('mariadb');
+let mysql = require('mysql2/promise');
 const config = require('../shared/config');
-const pool = mariadb.createPool(config.db);
+const pool = mysql.createPool(config.db);
 
 module.exports = {
     getCompanyList: async (req, res) => {
         let conn;
         try{
             conn = await pool.getConnection();
-            let rows = await conn.query(`SELECT companyID, name FROM ${req.decodedJwt.db}.company WHERE isdeleted = 0`);
+            let [rows, fields] = await conn.query(`SELECT companyID, name FROM ${req.decodedJwt.db}.company WHERE isdeleted = 0`);
             res.send(rows);
         }
         catch(err){
@@ -15,7 +15,7 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     },
     broadcastLogout: (wsServer) => {

@@ -62,7 +62,7 @@ let helpers = {
             helpers.handleError(res, err);
         }
         finally{
-            if (conn) return conn.end();
+            if (conn) conn.release(); 
         }
     },
     checkAuthorization: async (req, res, next, fn, customCompanyFilter) => {
@@ -90,7 +90,7 @@ let helpers = {
             helpers.handleError(res, err);
         }
         finally{
-            if (conn) return conn.end();
+            if (conn) conn.release(); 
         }
     }
 }

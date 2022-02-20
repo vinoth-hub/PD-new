@@ -1,7 +1,7 @@
-const mariadb = require('mariadb');
+let mysql = require('mysql2/promise');
 const config = require('../shared/config');
 const helpers = require('../shared/helpers');
-const pool = mariadb.createPool(config.db);
+const pool = mysql.createPool(config.db);
 
 module.exports = {
     userList: async(req, res) => { // Lazy load by page number
@@ -21,7 +21,7 @@ module.exports = {
             var query = `select sq.username, sq.userID, sq.fullname as fullName, group_concat(sq.category) as categoryList, group_concat(sq.level)as levelList, sq.ip, sq.title, sq.defaultcompany as defaultCompany from `
             + subQuery + 
             `as sq group by sq.userID order by sq.userID limit ${25 * (req.query.pageNumber - 1)},25`
-            let rows = await conn.query(query);
+            let [rows, fields] = await conn.query(query);
             rows.forEach((user)=>{
                 user.categoryList = user.categoryList?.length ? user.categoryList.split(',') : user.categoryList
                 user.levelList = user.levelList?.length ? user.levelList.split(',') : user.levelList
@@ -48,7 +48,7 @@ module.exports = {
         let conn;
         try{
             conn = await pool.getConnection();
-            var rows = await conn.query(`SELECT userID, username, fullname as fullName FROM ${req.decodedJwt.db}.\`user\` ORDER BY username`)
+            var [rows, fields] = await conn.query(`SELECT userID, username, fullname as fullName FROM ${req.decodedJwt.db}.\`user\` ORDER BY username`)
             res.send(rows);
         }
         catch(err){
@@ -71,7 +71,7 @@ module.exports = {
                 where c2.companyID = ${req.query.selectedCompany} and u.isDeleted = 0 and u.userID = ${req.params.userId})`;
                 var query = `select sq.userID, group_concat(sq.category) as categoryList, group_concat(sq.level) as levelList from ` + subQuery + 
                     `as sq group by sq.userID`;
-            var rows = await conn.query(query);
+            var [rows, fields] = await conn.query(query);
             res.send(rows[0]);
         }
         catch(err){
@@ -123,42 +123,42 @@ module.exports = {
             helpers.handleError(res, err);
         }
         finally{
-            if (conn) return conn.end();
+            if (conn) conn.release(); 
         }
     },
     getAllAccessPages: async(req, res) => {
         var conn;
         try{
             conn = await pool.getConnection();
-            var rows = await conn.query(`select distinct s.\`level\` from ${req.decodedJwt.db}.\`security\` s`);
+            var [rows, fields] = await conn.query(`select distinct s.\`level\` from ${req.decodedJwt.db}.\`security\` s`);
             res.send(rows.map(x => x.level));
         }
         catch(err){
             helpers.handleError(res, err);
         }
         finally{
-            if (conn) return conn.end();
+            if (conn) conn.release(); 
         }
     },
     getAllCategories: async(req, res) => {
         var conn;
         try{
             conn = await pool.getConnection();
-            var rows = await conn.query(`select distinct c.category from ${req.decodedJwt.db}.category c where companyID = ${req.query.selectedCompany} `);
+            var [rows, fields] = await conn.query(`select distinct c.category from ${req.decodedJwt.db}.category c where companyID = ${req.query.selectedCompany} `);
             res.send(rows.map(x => x.category));
         }
         catch(err){
             helpers.handleError(res, err);
         }
         finally{
-            if (conn) return conn.end();
+            if (conn) conn.release(); 
         }
     },
     updateUser: async(req, res)=>{
         var conn;
         try{
             conn = await pool.getConnection();
-            var currentTsList = await conn.query(`select t.transsecurityID, s.\`level\`, c.category, t.userID from ${req.decodedJwt.db}.transsecurity t
+            var [currentTsList, fields] = await conn.query(`select t.transsecurityID, s.\`level\`, c.category, t.userID from ${req.decodedJwt.db}.transsecurity t
                 left join ${req.decodedJwt.db}.\`security\` s on t.securityID = s.securityID and t.companyID = s.companyID
                 left join ${req.decodedJwt.db}.category c on t.categoryID  = c.categoryID and t.companyID = c.companyID 
                 where t.userID = ${req.body.userID} and t.companyID = ${req.query.selectedCompany}`);
@@ -197,11 +197,13 @@ module.exports = {
             })
             tsInsertQuery = tsInsertQuery.substring(0, tsInsertQuery.length - 1)
             accessesToRemove.forEach(async (x) => {
-                var securityID = (await conn.query(`SELECT securityID FROM ${req.decodedJwt.db}.security s WHERE s.level = '${x}' AND s.companyID = ${req.query.selectedCompany}`))[0].securityID;
+                var [security, fields] = await conn.query(`SELECT securityID FROM ${req.decodedJwt.db}.security s WHERE s.level = '${x}' AND s.companyID = ${req.query.selectedCompany}`);
+                var securityID = security.securityID;
                 await conn.query(`delete from ${req.decodedJwt.db}.transsecurity where userID = ${req.body.userID} and companyID = ${req.query.selectedCompany} and securityID  = ${securityID}`);
             })
             categoriesToRemove.forEach(async (x) => {
-                var categoryID = (await conn.query(`SELECT categoryID FROM ${req.decodedJwt.db}.category c WHERE c.category = '${x}' AND c.companyID = ${req.query.selectedCompany}`))[0].categoryID;
+                var [category, fields] = await conn.query(`SELECT categoryID FROM ${req.decodedJwt.db}.category c WHERE c.category = '${x}' AND c.companyID = ${req.query.selectedCompany}`);
+                var categoryID = category[0].categoryID;
                 await conn.query(`delete from ${req.decodedJwt.db}.transsecurity where userID = ${req.body.userID} and companyID = ${req.query.selectedCompany} and categoryID  = ${categoryID}`);
             })
             var userUpdateQuery = `UPDATE ${req.decodedJwt.db}.user SET 
@@ -216,21 +218,20 @@ module.exports = {
             await conn.query(userUpdateQuery);
             await conn.commit();
             res.sendStatus(204);
-            res.send({tsDeleteAccessesQuery,tsDeleteCategoriesQuery,tsInsertQuery})
         }
         catch(err){
             await conn.rollback();
             helpers.handleError(res, err);
         }
         finally{
-            if (conn) return conn.end();
+            if (conn) conn.release(); 
         }
     },
     createUser: async(req, res, next) => {
         var conn;
         try{
             conn = await pool.getConnection();
-            var duplicateUsers = await conn.query(`SELECT count(1) FROM ${req.decodedJwt.db}.user WHERE title = '${req.body.title}'`)
+            var [duplicateUsers, fields] = await conn.query(`SELECT count(1) FROM ${req.decodedJwt.db}.user WHERE title = '${req.body.title}'`)
             if(duplicateUsers && duplicateUsers[0] && duplicateUsers[0]['count(1)']){
                 res.status(400);
                 res.send('Duplicate user exists with same email');
@@ -260,14 +261,16 @@ module.exports = {
              '${helpers.prepareDateForMaria(new Date)}',
              '${req.body.fullName}');`)).insertId;
              for(var access of req.body.levelList){
-                var securityID = (await conn.query(`SELECT securityID FROM ${req.decodedJwt.db}.security WHERE companyID = ${req.query.selectedCompany} AND level = '${access}'`))[0].securityID
+                var [security, fields] = await conn.query(`SELECT securityID FROM ${req.decodedJwt.db}.security WHERE companyID = ${req.query.selectedCompany} AND level = '${access}'`);
+                var securityID = security[0].securityID
                 await conn.query(`INSERT INTO ${req.decodedJwt.db}.transsecurity
                 (userID, companyID, categoryID, securityID)
                 VALUES(${insertId}, ${req.query.selectedCompany}, NULL, ${securityID});
                 `);
              }
              for(var category of req.body.categoryList){
-                var categoryID = (await conn.query(`SELECT categoryID FROM ${req.decodedJwt.db}.category WHERE companyID = ${req.query.selectedCompany} AND category = '${category}'`))[0].categoryID
+                var [category, fields] = await conn.query(`SELECT categoryID FROM ${req.decodedJwt.db}.category WHERE companyID = ${req.query.selectedCompany} AND category = '${category}'`);
+                var categoryID = category[0].categoryID;
                 await conn.query(`INSERT INTO ${req.decodedJwt.db}.transsecurity
                 (userID, companyID, categoryID, securityID)
                 VALUES(${insertId}, ${req.query.selectedCompany}, ${categoryID}, NULL);
@@ -279,7 +282,7 @@ module.exports = {
             helpers.handleError(res, err);
         }
         finally{
-            if (conn) return conn.end();
+            if (conn) conn.release(); 
         }
     },
     forceLogout: async(req, res, next) => {
@@ -294,7 +297,7 @@ module.exports = {
             helpers.handleError(res, err);
         }
         finally{
-            if (conn) return conn.end();
+            if (conn) conn.release(); 
         }
     }
 }

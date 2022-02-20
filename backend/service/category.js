@@ -1,7 +1,7 @@
-const mariadb = require('mariadb');
+let mysql = require('mysql2/promise');
 const config = require('../shared/config');
 const helpers = require('../shared/helpers');
-const pool = mariadb.createPool(config.db);
+const pool = mysql.createPool(config.db);
 
 module.exports = {
     getList: async (req, res) => {
@@ -17,7 +17,7 @@ module.exports = {
             var query = `select sq.categoryid, sq.name, group_concat(sq.criteria) criteriaList, sq.expiration from `
             + subQuery + 
             `as sq where sq.companyID = ${req.query.selectedCompany} group by sq.categoryID order by sq.name limit ${25 * (req.query.pageNumber - 1)},25`
-            let rows = await conn.query(query);
+            let [rows, fields] = await conn.query(query);
             rows.forEach((cat)=>{
                 cat.criteriaList = cat.criteriaList?.length ? cat.criteriaList.split(',') : cat.criteriaList
                 if(cat.criteriaList?.length > 3)
@@ -33,13 +33,13 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     },
     getSummary: async (req, res) => {
         try{
             conn = await pool.getConnection();
-            var rows = await conn.query(`SELECT categoryID, category as name FROM ${req.decodedJwt.db}.category WHERE isdeleted = 0 AND companyID = ${req.query.selectedCompany}`);
+            var [rows, fields] = await conn.query(`SELECT categoryID, category as name FROM ${req.decodedJwt.db}.category WHERE isdeleted = 0 AND companyID = ${req.query.selectedCompany}`);
             res.send(rows);
         }
         catch(err){
@@ -47,7 +47,7 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     },
     updateExpiration: async (req, res) => {
@@ -63,7 +63,7 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     },
     delete: async (req, res) => {
@@ -79,13 +79,13 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     },
     criteriaOptions: async (req, res) => {
         try{
             conn = await pool.getConnection();
-            var rows = await conn.query(`select distinct c.criteria from ${req.decodedJwt.db}.criteria c where c.isdeleted = 0 and companyID=${req.query.selectedCompany} `)
+            var [rows, fields] = await conn.query(`select distinct c.criteria from ${req.decodedJwt.db}.criteria c where c.isdeleted = 0 and companyID=${req.query.selectedCompany} `)
             res.send(rows.map(row => row.criteria));
         }
         catch(err){
@@ -93,13 +93,13 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     },
     updateCriteria: async (req, res) => {
         try{
             conn = await pool.getConnection();
-            var currentCriteria = await conn.query(`select distinct c.criteria from ${req.decodedJwt.db}.criteria c where c.isdeleted = 0 and companyID=${req.query.selectedCompany} and categoryID = ${req.body.categoryID}`)
+            var [currentCriteria, fields] = await conn.query(`select distinct c.criteria from ${req.decodedJwt.db}.criteria c where c.isdeleted = 0 and companyID=${req.query.selectedCompany} and categoryID = ${req.body.categoryID}`)
             currentCriteria = currentCriteria.map(x => x.criteria);
             var newCriteria = req.body.criteriaList;
             for(var item of currentCriteria){
@@ -119,7 +119,7 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     },
     editCategory: async (req, res) => {
@@ -133,13 +133,13 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     },
     addCategory: async (req, res) => {
         try{
             conn = await pool.getConnection();
-            var result = await conn.query(`INSERT INTO ${req.decodedJwt.db}.category
+            var [result, fields] = await conn.query(`INSERT INTO ${req.decodedJwt.db}.category
             (companyID, category, isdeleted, expiration)
             VALUES(${req.query.selectedCompany}, '${req.body.name}', 0, ${req.body.expiration});
             `)
@@ -177,7 +177,7 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     }
 }
