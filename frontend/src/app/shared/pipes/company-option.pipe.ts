@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Company } from '../view-models/company.view-model';
+import { Company } from '../../view-models/company.view-model';
 
 @Pipe({
   name: 'companyOption'

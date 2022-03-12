@@ -114,13 +114,13 @@
 	</table>
 	<div class="paginateContainer">
 		<ul class="paginateList">
-			<li class="paginatePrevious {{pagination.getPreviousDisabled() ? 'paginateDisabled' : ''}}" (click)="paginatePrevious()">
+			<li class="paginatePrevious {{pagination.isPreviousDisabled ? 'paginateDisabled' : ''}}" (click)="paginatePrevious()">
 				<a class="paginateAnchor">&lt;</a>
 			</li>
-			<li class="paginatePage {{pagination.getActiveIndex() === i ? 'paginateActive' : ''}}" *ngFor="let page of pagination.getPages(); index as i;" (click)="paginateTo(page)">
+			<li class="paginatePage {{pagination.activeIndex === i ? 'paginateActive' : ''}}" *ngFor="let page of pagination.pages; index as i;" (click)="paginateTo(page)">
 			<a class="paginateAnchor">{{page}}</a>
 			</li>
-			<li class="paginateNext {{pagination.getNextDisabled() ? 'paginateDisabled' : ''}}" (click)="paginateNext()">
+			<li class="paginateNext {{pagination.isNextDisabled ? 'paginateDisabled' : ''}}" (click)="paginateNext()">
 				<a class="paginateAnchor">&gt;</a>
 			</li>
 		</ul>

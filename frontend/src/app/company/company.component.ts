@@ -56,7 +56,7 @@ export class CompanyComponent implements OnInit {
     let response = await lastValueFrom(this.companyService.getCompanyList(pageNumber, this.searchQuery));
     this.companies = response.list;
     this.pagination = new PaginationViewModel(Math.ceil(response.count/25));
-    this.pagination.setActiveIndex(pageNumber - 1)
+    this.pagination.activeIndex = pageNumber - 1;
   }
   async loadTimezones(): Promise<any> {
     this.allTimezones = await lastValueFrom(this.companyService.getAllTimezones());
@@ -65,14 +65,14 @@ export class CompanyComponent implements OnInit {
     await this.refreshCompanies(targetPage)
   }
   async paginatePrevious(): Promise<void>{
-    let activeIndex: number = this.pagination.getActiveIndex();
+    let activeIndex: number = this.pagination.activeIndex;
     if(activeIndex === 0)
       return;
     await this.paginateTo(activeIndex)
   }
   async paginateNext(): Promise<void>{
-    let activeIndex: number = this.pagination.getActiveIndex();
-    if(activeIndex === this.pagination.getItemCount() - 1)
+    let activeIndex: number = this.pagination.activeIndex;
+    if(activeIndex === this.pagination.itemCount - 1)
       return;
     await this.paginateTo(activeIndex + 2);
   }

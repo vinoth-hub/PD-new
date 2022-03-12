@@ -1,7 +1,7 @@
+let mysql = require('mysql2/promise');
 const nodemailer = require('nodemailer');
 const config = require('../shared/config');
-const mariadb = require('mariadb');
-const pool = mariadb.createPool(config.db);
+const pool = mysql.createPool(config.db);
 
 let helpers = {
     prepareDateForMaria: (date) => date.toISOString().replace('T', ' ').replace('Z', ''),
@@ -62,7 +62,7 @@ let helpers = {
             helpers.handleError(res, err);
         }
         finally{
-            if (conn) return conn.end();
+            if (conn) conn.release(); 
         }
     },
     checkAuthorization: async (req, res, next, fn, customCompanyFilter) => {
@@ -79,7 +79,7 @@ let helpers = {
             var query = `select count(1) from ${req.decodedJwt.db}.transsecurity t 
             inner join ${req.decodedJwt.db}.\`security\` s on t.securityID = s.securityID and t.companyID = s.companyID 
             where t.userID  = ${req.decodedJwt.userId} and \`level\` = '${fn}' ${companyFilterClause}`;
-            var rows = await conn.query(query)
+            var [rows, fields] = await conn.query(query)
             if(!rows || !rows[0] || !rows[0]["count(1)"]){
                 res.sendStatus(403);
                 return;
@@ -90,7 +90,7 @@ let helpers = {
             helpers.handleError(res, err);
         }
         finally{
-            if (conn) return conn.end();
+            if (conn) conn.release(); 
         }
     }
 }

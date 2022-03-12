@@ -14,7 +14,7 @@ app.use(cors({
 
 var httpServer = http.createServer(app)
 var wsServer = new Websocket.WebSocketServer({server: httpServer});
-routes.register.common(app);
+routes.register.shared(app);
 routes.register.user(app, wsServer);
 routes.register.company(app);
 routes.register.category(app);

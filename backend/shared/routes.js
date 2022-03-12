@@ -1,38 +1,39 @@
 const auth = require('../service/auth');
 const user = require('../service/user');
-const common = require('../service/common');
+const shared = require('../service/shared');
 const mailer = require('../service/mailer');
 const helpers = require('../shared/helpers');
 const company = require('../service/company');
 const category = require('../service/category');
-var Websocket = require('ws');
+const quickSearch = require('../service/quick-search');
+const powerSearch = require('../service/power-search');
 
 module.exports = {
     register:{
-        common: (app) =>{
-            app.post('/api/login', auth.login, auth.decodeJwt, helpers.updateLastActivity, (req, res) => {
+        shared: (app) =>{
+            const baseUrl = '/api/';
+            app.post(`${baseUrl}login`, auth.login, auth.decodeJwt, helpers.updateLastActivity, (req, res) => {
                 res.send(req.loginResult)
             })
-            app.get('/api/companies', auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, (req, res, next) => {
-                if(!req.decodedJwt){
-                    res.sendStatus(403);
-                    return;
-                }
-                next();
-            }, common.getCompanyList)
+            app.get(`${baseUrl}companies`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.common, shared.getCompanyList)
+            app.get(`${baseUrl}search/:searchType/access`,auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.preAuthorize.search, auth.authorize.search.generic, (req, res) => {
+                res.sendStatus(204)
+            });
+            app.get(`${baseUrl}search/:searchType/download`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.preAuthorize.search, auth.authorize.search.specific, shared.download);
+            app.put(`${baseUrl}search/:searchType/note`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.preAuthorize.search, auth.authorize.search.specific, shared.updateNote)
         },
         user:(app, wsServer) => {
             const baseUrl = '/api/user';
             app.get(`${baseUrl}/all-access-pages`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.getAllAccessPages);
             app.get(`${baseUrl}/all-categories`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.getAllCategories);
-            app.get(baseUrl, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.userList);
-            app.get(`${baseUrl}/summary`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.getSummary);
-            app.get(`${baseUrl}/:userId/ts-details`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.getTsDetails);
-            app.delete(`${baseUrl}/:userId`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.deleteUser);
-            app.put(`${baseUrl}/:userId/deactivate`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.deactivateUser);
-            app.put(`${baseUrl}/:userId/force-logout`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.forceLogout, common.broadcastLogout(wsServer));
+            app.get(baseUrl, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.userList);
+            app.get(`${baseUrl}/summary`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.getSummary);
+            app.get(`${baseUrl}/:userId/ts-details`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.getTsDetails);
+            app.delete(`${baseUrl}/:userId`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.deleteUser);
+            app.put(`${baseUrl}/:userId/deactivate`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.deactivateUser);
+            app.put(`${baseUrl}/:userId/force-logout`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.forceLogout, shared.broadcastLogout(wsServer));
             app.put(`${baseUrl}/password-reset`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, auth.generatePassword, user.setPassword, mailer.passwordReset)
-            app.put(baseUrl, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users,user.updateUser);
+            app.put(baseUrl, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, user.updateUser);
             app.post(baseUrl, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.users, auth.generatePassword, user.createUser, mailer.newAccount, (req, res) => {
                 res.sendStatus(201)
             }); 
@@ -59,6 +60,15 @@ module.exports = {
             app.put(`${baseUrl}`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.category, category.editCategory);
             app.post(`${baseUrl}`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.category, category.addCategory);
             app.delete(`${baseUrl}/:categoryId`, auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.authorize.category, category.delete);
+        },
+        search: (app) => {
+            const baseUrl = '/api/search/quick'
+            app.get(`${baseUrl}/submit`,auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.preAuthorize.search, auth.authorize.search.generic, quickSearch.quickSearch);
+        },
+        powerSearch: (app) => {
+            const baseUrl = '/api/search/power'
+            app.get(`${baseUrl}/category-options`,auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.preAuthorize.search, auth.authorize.search.generic, powerSearch.getUniqueCategories)
+            app.post(`${baseUrl}/submit`,auth.decodeJwt, auth.checkLastActivity, helpers.updateLastActivity, auth.preAuthorize.search, auth.authorize.search.generic, powerSearch.doSearch)
         }
     }
 }

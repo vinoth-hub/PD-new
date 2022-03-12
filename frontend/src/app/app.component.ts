@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { lastValueFrom } from 'rxjs';
 import { AppService } from './app.service';
@@ -28,7 +28,7 @@ export class AppComponent {
       else{
         await this.initCompanyDropdown();
         if(!location.pathname || location.pathname === '/' || location.pathname === '/login') // ActivatedRoute is not available here, so use window.location
-          this.router.navigate(['/user'])
+          this.router.navigate(['/power-search'])
         if(!this.selectedCompany && this.cookieService.get('selectedCompany'))
           this.selectedCompany = this.cookieService.get('selectedCompany');
         if(!this.userFullName && this.cookieService.get('userFullName'))

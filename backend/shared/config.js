@@ -17,8 +17,7 @@ module.exports = {
         user: 'pdis',
         password: 'PDIS123!',
         connectionLimit: 5,
-        port: 3306,
-        allowPublicKeyRetrieval: true
+        port: 3306
     },
     jwtEncodingSecret: 'apfsds',
     isProd: false, // For debugging! Make true in prod for security!

@@ -19,10 +19,12 @@ const httpsOptions = {
 }
 var httpServer = https.createServer(httpsOptions, app)
 var wsServer = new Websocket.WebSocketServer({server: httpServer});
-routes.register.common(app);
+routes.register.shared(app);
 routes.register.user(app, wsServer);
 routes.register.company(app);
 routes.register.category(app);
+routes.register.search(app);
+routes.register.powerSearch(app);
 
 app.use(express.static('../dist/pd'));
 

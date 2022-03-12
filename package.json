@@ -16,6 +16,7 @@
     "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.5.5",
     "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
     "nodemailer": "^6.7.2",
     "ws": "^8.4.2"
   }

@@ -2,8 +2,8 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from "@angular/core";
 import { CookieService } from "ngx-cookie-service";
 import { Observable, throwError, catchError, map } from "rxjs";
-import { AppService } from "../app.service";
-import { LoginService } from "../login/login.service";
+import { AppService } from "../../app.service";
+import { LoginService } from "../../login/login.service";
 
 @Injectable()
 export class Interceptor implements HttpInterceptor{
