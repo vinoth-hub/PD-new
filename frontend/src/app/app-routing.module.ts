@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { CategoryComponent } from './category/category.component';
 import { CompanyComponent } from './company/company.component';
 import { LoginComponent } from './login/login.component';
+import { PowerSearchComponent } from './power-search/power-search.component';
+import { QuickSearchComponent } from './quick-search/quick-search.component';
 import { UserComponent } from './user/user/user.component';
 
 const routes: Routes = [
@@ -26,6 +28,14 @@ const routes: Routes = [
   {
     path: 'category',
     component: CategoryComponent
+  },
+  {
+    path: 'quick-search',
+    component: QuickSearchComponent
+  },
+  {
+    path: 'power-search',
+    component: PowerSearchComponent
   }
 ];
 

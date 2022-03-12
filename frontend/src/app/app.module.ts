@@ -6,7 +6,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { Interceptor } from './shared/interceptor';
+import { Interceptor } from './shared/interceptor/interceptor';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { UserComponent } from './user/user/user.component';
@@ -14,7 +14,11 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CompanyComponent } from './company/company.component';
 import { CategoryComponent } from './category/category.component';
-import { CompanyOptionPipe } from './shared/company-option.pipe';
+import { CompanyOptionPipe } from './shared/pipes/company-option.pipe';
+import { QuickSearchComponent } from './quick-search/quick-search.component';
+import { PaginationInfoPipe } from './shared/pipes/pagination-info.pipe';
+import { PowerSearchComponent } from './power-search/power-search.component';
+import { NotesModalComponent } from './shared/components/notes-modal/notes-modal.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { CompanyOptionPipe } from './shared/company-option.pipe';
     UserComponent,
     CompanyComponent,
     CategoryComponent,
-    CompanyOptionPipe
+    CompanyOptionPipe,
+    QuickSearchComponent,
+    PaginationInfoPipe,
+    PowerSearchComponent,
+    NotesModalComponent
   ],
   imports: [
     BrowserModule,

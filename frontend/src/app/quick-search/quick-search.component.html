@@ -1,0 +1,76 @@
+<div class="searchBoxQuick">
+    <div class="quickSearchTextLeft"></div>
+    <div class="searchAreaPower">Search</div>
+    <div class="powerRight"></div>
+ </div>
+ <div class="searchBoxQuick">
+    <div class="quickSearchTextLeft">Quick Search</div>
+    <div class="searchAreaQuick"> <input type="search" class="quickSearchBoxClass" placeholder="Search Text" [(ngModel)]="searchQuery"/></div>
+    <div  class="searchBoxRight" (click)="submitQuery()"><img src="assets/images/searchBox.png" width="100%" height="100%"/></div>
+ </div>
+ <div class="searchBoxQuick2">
+    <div class="powerSearchBox"><a [routerLink]='["/power-search"]'>Power Search</a></div>
+ </div>
+ <div class="card-bodyInner" *ngIf="showResults">
+    <p class="paraSearch">{{paginatedSearchResults | paginationInfo}}</p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+       <tr>
+          <td class="paraSearch" width="8%" valign="middle">Results per page</td>
+          <td valign="middle">
+             <select class="pageNoDropdown" id="pageNo" name="pageNo" [(ngModel)]="paginatedSearchResults.resultsPerPage" style="width:71px; height:50px; float:left;">
+             <option value="25">25</option>
+             <option value="50">50</option>
+             <option value="75">75</option>
+             <option value="100">100</option>
+             </select>
+          </td>
+       </tr>
+    </table>
+    <!--/***** Body Table Data section start here *************/-->
+    <div  class="tableWrapper1">
+       <table class="tableClass1" width="0" cellpadding="0" cellspacing="0" id="tableData">
+          <thead>
+             <tr>
+                <th class="tableHdLink">PO #</th>
+                <th></th>
+                <th class="tableHDText">Documents Dates</th>
+                <th class="tableHDText">Scanned User</th>
+                <th class="tableHDText">Scanned Date</th>
+             </tr>
+          </thead>
+          <tbody>
+             <tr *ngFor="let result of paginatedSearchResults.filteredList">
+                <td valign="top" class="tableDataBody">{{result.pictureID}}</td>
+                <td valign="top" align="center">
+                   <div class="iconDiv">
+                      <img src="assets/images/pdfIcon.png" border="0" width="25" class="rightSpacing pdf file-action" (click)="downloadFile(result.pictureID)"/>
+                      <label class="iconData rightSpacing">(10)</label>
+                      <img src="assets/images/copyIcon.png" border="0"  width="25" class="rightSpacing edit file-action" (click)="onNoteEdit(result)"/>
+                      <img src="assets/images/shareIcon.png" border="0"  width="25" class="share file-action"/>
+                   </div>
+                </td>
+                <td valign="top" align="center" class="tableDataBody">{{result.dnchDate | date}}</td>
+                <td valign="top" align="center" class="tableDataBody">{{result.username}}</td>
+                <td valign="top" align="center" class="tableDataBody">{{result.pictureDate | date}}</td>
+             </tr>
+          </tbody>
+       </table>
+       <div class="paginateContainer">
+          <ul class="paginateList">
+             <li class="paginatePrevious {{paginatedSearchResults.isPreviousDisabled ? 'paginateDisabled' : ''}}" (click)="paginatedSearchResults.paginatePrevious()">
+                <a class="paginateAnchor">&lt;</a>
+             </li>
+             <li class="paginatePage {{paginatedSearchResults.activeIndex === i ? 'paginateActive' : ''}}" *ngFor="let page of paginatedSearchResults.pages; index as i;" (click)="paginatedSearchResults.paginateTo(page)">
+             <a class="paginateAnchor">{{page}}</a>
+             </li>
+             <li class="paginateNext {{paginatedSearchResults.isNextDisabled ? 'paginateDisabled' : ''}}" (click)="paginatedSearchResults.paginateNext()">
+                <a class="paginateAnchor">&gt;</a>
+             </li>
+          </ul>
+       </div>
+    </div>
+    <!--/***** Body Table Data section End here *************/-->
+ </div>
+ <app-notes-modal [document]="notesDocument" [open]="open" (done)="notesSaved()">
+
+ </app-notes-modal>

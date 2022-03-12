@@ -41,7 +41,7 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     },
     getSummary: async (req, res) => { // Lazy load for above, not this because this has data from only one table
@@ -56,7 +56,7 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     },
     getTsDetails: async(req, res) => {
@@ -79,7 +79,7 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     },
     deleteUser: async(req, res) => {
@@ -94,7 +94,7 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     },
     deactivateUser: async(req, res) => {
@@ -109,7 +109,7 @@ module.exports = {
         }
         finally{
             if(conn)
-                conn.end();
+                conn.release();
         }
     },
     setPassword: async(req, res, next) => {

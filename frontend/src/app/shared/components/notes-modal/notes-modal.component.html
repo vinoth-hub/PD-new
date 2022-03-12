@@ -1,0 +1,21 @@
+<ng-template #notesModal>
+    <div id="dialogEditPos">
+       <div class="addCategoryPopupBox1">
+          <form method="post" action="#">
+             <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                <tr>
+                   <td class="middleHeadText" colspan="3" align="center">Edit Note</td>
+                </tr>
+                <tr>
+                   <td>
+                       <textarea [(ngModel)]="document.note" name="notes" class="form-control" class="notes form-control" rows="6"></textarea>
+                   </td>
+                </tr>
+                <tr>
+                   <td colspan="3"><input type="submit" value="Make Changes" class="formButtonClass btn btn-secondary" (click)="submit()"/></td>
+                </tr>
+             </table>
+          </form>
+       </div>
+    </div>
+ </ng-template>

@@ -8,6 +8,14 @@ body{
 .card{
     &.not-bs-card{
         border: none;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border-radius: 17px;
     }
 }
 
@@ -89,4 +97,16 @@ body{
     margin-top: 50px;
   }
 }
-
+/*
+.paginateContainer{
+  li:not(.paginatePage){
+    .paginateAnchor{
+      background: #6FB43F;
+    }
+    .paginateDisabled{
+      .paginateAnchor{
+        background: #E2E2E2;
+      }
+    }
+  }
+}*/
