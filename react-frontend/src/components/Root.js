@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Layout } from "./shared/Layout";
 import { routes } from "../routes/routes";
 import { Singin } from "./pages/login/Singin";
+import ProtectedRoute from "./pages/login/protectedRoute";
 
 export const Root = () => {
   const routeMapping = (path, Component, exact, nestedRoutes, index) => {
@@ -19,13 +19,7 @@ export const Root = () => {
   return (
     <Routes>
       <Route path="/" element={<Singin />} />
-      <Route
-        path="/"
-        element={<Layout />}
-        // element={
-        //   auth ? <Layout /> : <Navigate to={ROUTE_PATHS.login} /> // to protect route
-        // }
-      >
+      <Route path="/" element={<ProtectedRoute />}>
         {routes.map(({ path, Component, exact, nestedRoutes }, index) =>
           routeMapping(path, Component, exact, nestedRoutes, index)
         )}

@@ -49,7 +49,7 @@ export function CustomTextField(props) {
         size={size || "small"}
         placeholder={placeholder}
         variant={variant ? variant : "outlined"}
-        type={"text"}
+        type={type || "text"}
         name={name}
         fullWidth={fullWidth || true}
         autoComplete={autoComplete}

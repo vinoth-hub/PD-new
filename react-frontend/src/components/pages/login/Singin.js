@@ -8,6 +8,8 @@ import { useMutation } from "@tanstack/react-query";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATHS } from "../../../routes/routePath";
+import { setUserData } from "../../../redux/MainReducer";
+import { store } from "../../../redux/Store";
 
 const Container = styled("div")(({ theme }) => ({
   display: "flex",
@@ -62,8 +64,16 @@ export const Singin = () => {
 
   const login = useMutation({
     mutationFn: () => postApiServices(apiRoutes.login, values),
-    onSuccess: ({ data }) => {
+    onSuccess: async ({ data }) => {
       cookies.set("token", data?.token, { path: "/" });
+      cookies.set("userId", data?.userId, { path: "/" });
+      cookies.set("userFullName", data?.userFullName, { path: "/" });
+      cookies.set("defaultcompany", data?.defaultcompany, { path: "/" });
+      store.dispatch(
+        setUserData({
+          ...data,
+        })
+      );
       navigate(ROUTE_PATHS.COMPANY_LIST);
     },
   });

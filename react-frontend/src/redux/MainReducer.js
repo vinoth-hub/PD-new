@@ -21,6 +21,10 @@ const initialState = {
     message: "",
     messageStatus: false,
   },
+  defaultcompany: "",
+  userFullName: "",
+  userId: "",
+  token: "",
 };
 
 const mainSlice = createSlice({
@@ -34,9 +38,16 @@ const mainSlice = createSlice({
         messageStatus: action?.payload?.messageStatus,
       };
     },
+
+    setUserData: (state, action) => {
+      state["defaultcompany"] = action?.payload?.defaultcompany;
+      state["userFullName"] = action?.payload?.userFullName;
+      state["userId"] = action?.payload?.userId;
+      state["token"] = action?.payload?.token;
+    },
   },
 });
 
-export const { setToastMessage } = mainSlice?.actions;
+export const { setToastMessage, setUserData } = mainSlice?.actions;
 
 export default mainSlice?.reducer;

@@ -10,3 +10,13 @@ export const successToast = (data) => {
     })
   );
 };
+
+export const errorToast = (data) => {
+  store.dispatch(
+    setToastMessage({
+      severity: "error",
+      message: data,
+      messageStatus: true,
+    })
+  );
+};
