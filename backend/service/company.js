@@ -26,10 +26,8 @@ module.exports = {
       if (req.query.search?.length)
         filterClause = `and name like '%${req.query.search}%'`;
       var [rows, fields] = await conn.query(
-        `SELECT companyID, name, timezone, ip, dst FROM ${
-          req.decodedJwt.db
-        }.company where isdeleted = 0 ${filterClause} limit ${
-          25 * (req.query.pageNumber - 1)
+        `SELECT *, timezone, ip, dst FROM ${req.decodedJwt.db
+        }.company where isdeleted = 0 ${filterClause} limit ${25 * (req.query.pageNumber - 1)
         },25`
       );
       var [count, fields] = await conn.query(
@@ -188,6 +186,22 @@ module.exports = {
       res.sendStatus(201);
     } catch (err) {
       console.log("err: ", err);
+      helpers.handleError(res, err);
+    } finally {
+      if (conn) conn.release();
+    }
+  },
+
+  getCompanyWithCategory: async (req, res) => {
+    let conn;
+    try {
+      conn = await pool.getConnection();
+      var [rows, fields] = await conn.query(
+        `SELECT  c.companyID, c.name,  JSON_ARRAYAGG(cat.category) AS categories FROM ${req.decodedJwt.db}.company c
+         JOIN ${req.decodedJwt.db}.category cat ON c.companyID = cat.companyID WHERE cat.isdeleted = 0 AND c.isdeleted = 0 GROUP BY c.companyID, c.name;`
+      );
+      res.send(rows);
+    } catch (err) {
       helpers.handleError(res, err);
     } finally {
       if (conn) conn.release();

@@ -177,7 +177,9 @@ module.exports = {
           Math.floor(Math.random() * charactersLength)
         );
       req.newPassword.password = password;
-      req.newPassword.hash = await bcrypt.hash(password, 0);
+      // req.newPassword.hash = await bcrypt.hash(password, 0); // uncomment in prod
+      req.newPassword.hash = password; // comment in prod
+
       next();
     } catch (err) {
       helpers.handleError(res, err);
